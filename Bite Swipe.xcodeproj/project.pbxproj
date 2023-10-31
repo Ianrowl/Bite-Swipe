@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		D761A8E62AEF6DDB00968955 /* Bite_SwipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A8E52AEF6DDB00968955 /* Bite_SwipeApp.swift */; };
-		D761A8E82AEF6DDB00968955 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A8E72AEF6DDB00968955 /* ContentView.swift */; };
 		D761A8EA2AEF6DDE00968955 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D761A8E92AEF6DDE00968955 /* Assets.xcassets */; };
 		D761A8EE2AEF6DDE00968955 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D761A8ED2AEF6DDE00968955 /* Preview Assets.xcassets */; };
 		D761A8F82AEF6DDE00968955 /* Bite_SwipeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A8F72AEF6DDE00968955 /* Bite_SwipeTests.swift */; };
 		D761A9022AEF6DDE00968955 /* Bite_SwipeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A9012AEF6DDE00968955 /* Bite_SwipeUITests.swift */; };
 		D761A9042AEF6DDE00968955 /* Bite_SwipeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A9032AEF6DDE00968955 /* Bite_SwipeUITestsLaunchTests.swift */; };
+		D761A9112AEF6DF300968955 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A9102AEF6DF300968955 /* HomeView.swift */; };
+		D761A9132AEF6E4100968955 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A9122AEF6E4100968955 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +37,6 @@
 /* Begin PBXFileReference section */
 		D761A8E22AEF6DDA00968955 /* Bite Swipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bite Swipe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D761A8E52AEF6DDB00968955 /* Bite_SwipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bite_SwipeApp.swift; sourceTree = "<group>"; };
-		D761A8E72AEF6DDB00968955 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D761A8E92AEF6DDE00968955 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D761A8EB2AEF6DDE00968955 /* Bite_Swipe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bite_Swipe.entitlements; sourceTree = "<group>"; };
 		D761A8ED2AEF6DDE00968955 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -45,6 +45,8 @@
 		D761A8FD2AEF6DDE00968955 /* Bite SwipeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bite SwipeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D761A9012AEF6DDE00968955 /* Bite_SwipeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bite_SwipeUITests.swift; sourceTree = "<group>"; };
 		D761A9032AEF6DDE00968955 /* Bite_SwipeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bite_SwipeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D761A9102AEF6DF300968955 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D761A9122AEF6E4100968955 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				D761A8E52AEF6DDB00968955 /* Bite_SwipeApp.swift */,
-				D761A8E72AEF6DDB00968955 /* ContentView.swift */,
+				D761A9102AEF6DF300968955 /* HomeView.swift */,
+				D761A9122AEF6E4100968955 /* HomeViewModel.swift */,
 				D761A8E92AEF6DDE00968955 /* Assets.xcassets */,
 				D761A8EB2AEF6DDE00968955 /* Bite_Swipe.entitlements */,
 				D761A8EC2AEF6DDE00968955 /* Preview Content */,
@@ -259,7 +262,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D761A8E82AEF6DDB00968955 /* ContentView.swift in Sources */,
+				D761A9112AEF6DF300968955 /* HomeView.swift in Sources */,
+				D761A9132AEF6E4100968955 /* HomeViewModel.swift in Sources */,
 				D761A8E62AEF6DDB00968955 /* Bite_SwipeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
