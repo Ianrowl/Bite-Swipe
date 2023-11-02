@@ -6,6 +6,7 @@
 //
 import Foundation
 import SwiftUI
+
 class HomeViewModel: ObservableObject {
     @Published var showMessage = false
     

@@ -14,3 +14,15 @@ struct Bite_SwipeApp: App {
         }
     }
 }
+
+//@main
+//struct Bite_SwipeApp: App {
+//    @StateObject var restaurantViewModel = RestaurantViewModel()
+//
+//    var body: some Scene {
+//        WindowGroup {
+//            HomeView()
+//                .environmentObject(restaurantViewModel)
+//        }
+//    }
+//}
