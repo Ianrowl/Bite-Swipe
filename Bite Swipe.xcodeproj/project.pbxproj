@@ -20,6 +20,8 @@
 		D761A9042AEF6DDE00968955 /* Bite_SwipeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A9032AEF6DDE00968955 /* Bite_SwipeUITestsLaunchTests.swift */; };
 		D761A9112AEF6DF300968955 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A9102AEF6DF300968955 /* HomeView.swift */; };
 		D761A9132AEF6E4100968955 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A9122AEF6E4100968955 /* HomeViewModel.swift */; };
+		D7F7030E2AFB4D9700128EFD /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = D7F7030D2AFB4D9700128EFD /* URLImage */; };
+		D7F703102AFB4D9700128EFD /* URLImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = D7F7030F2AFB4D9700128EFD /* URLImageStore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7F703102AFB4D9700128EFD /* URLImageStore in Frameworks */,
+				D7F7030E2AFB4D9700128EFD /* URLImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +183,10 @@
 			dependencies = (
 			);
 			name = "Bite Swipe";
+			packageProductDependencies = (
+				D7F7030D2AFB4D9700128EFD /* URLImage */,
+				D7F7030F2AFB4D9700128EFD /* URLImageStore */,
+			);
 			productName = "Bite Swipe";
 			productReference = D761A8E22AEF6DDA00968955 /* Bite Swipe.app */;
 			productType = "com.apple.product-type.application";
@@ -251,6 +259,9 @@
 				Base,
 			);
 			mainGroup = D761A8D92AEF6DDA00968955;
+			packageReferences = (
+				D7F7030C2AFB4C3600128EFD /* XCRemoteSwiftPackageReference "url-image" */,
+			);
 			productRefGroup = D761A8E32AEF6DDA00968955 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -657,6 +668,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D7F7030C2AFB4C3600128EFD /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D7F7030D2AFB4D9700128EFD /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7F7030C2AFB4C3600128EFD /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
+		};
+		D7F7030F2AFB4D9700128EFD /* URLImageStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7F7030C2AFB4C3600128EFD /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImageStore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D761A8DA2AEF6DDA00968955 /* Project object */;
 }

@@ -60,7 +60,20 @@ private struct Result: Decodable {
     let name: String
     let categories: [Category]
     let location: Location
+    let photo: Photo? // Add a property for the photo data
+
+    // Define the Photo struct
+    struct Photo: Decodable {
+        let url: String
+    }
 }
+
+
+//private struct Result: Decodable {
+//    let name: String
+//    let categories: [Category]
+//    let location: Location
+//}
 
 private struct Category: Decodable {
     let name: String
