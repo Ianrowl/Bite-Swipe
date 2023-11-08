@@ -8,50 +8,66 @@
 import Foundation
 
 class RestaurantService {
-    static let shared = RestaurantService()
+//    private let apiURL = "https://api.foursquare.com/v3/places/search"
+//    private let apiURL = "https://api.foursquare.com/v3/places/search?near=Boulder,Colorado&limit=25"
+    private let apiURL = "https://api.foursquare.com/v3/places/search?radius=24000&limit=25"//Will likely keep editing this as the project goes on
 
-    private let apiURL = URL(string: "https://api.foursquare.com/v3/places/search")!
-    private let apiKey = "FQ5NHUYD3MUSFD1B5Y0JQ1EZFXV4AUM3FEMN3ERBMDF05NW4"
-    private let apiSecret = "M3IPC4A023HPGJ4AARLU1VZIVHCG1540FIZRE0PHHQTRSZ5I"
-    private let apiCategory = "4d4b7105d754a06374d81259" // This is the "Food" category
+
+
+    private let apiKey = "fsq3kl7NeyCzFZSmIzk4VZaT3iww2HUeylc4XB3NA/crDPA="
 
     func fetchRestaurants(completion: @escaping ([Restaurant]?) -> Void) {
-        var components = URLComponents(url: apiURL, resolvingAgainstBaseURL: false)!
-        components.queryItems = [
-            URLQueryItem(name: "limit", value: "10"),
-            URLQueryItem(name: "categoryId", value: apiCategory),
-            URLQueryItem(name: "client_id", value: apiKey),
-            URLQueryItem(name: "client_secret", value: apiSecret)
-        ]
-
-        guard let url = components.url else {
+        guard let url = URL(string: apiURL) else {
             completion(nil)
             return
         }
 
-        // Create the Foursquare API request
-        let request = NSMutableURLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "accept")
+        request.addValue(apiKey, forHTTPHeaderField: "Authorization")
 
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let data = data {
-                if let jsonString = String(data: data, encoding: .utf8) {
-                    print("API Response JSON: \(jsonString)")
-                }
-
-                let decoder = JSONDecoder()
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                completion(nil)
+            } else if let data = data {
                 do {
-                    let response = try decoder.decode(RestaurantResponse.self, from: data)
-                    completion(response.results)
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(Response.self, from: data)
+                    let restaurants = response.results.map { result in
+                        return Restaurant(
+                            name: result.name,
+                            cuisine: result.categories.first?.name ?? "",
+                            location: result.location.formatted_address
+                        )
+                    }
+                    completion(restaurants)
                 } catch {
-                    print("Error decoding restaurant data: \(error)")
+                    print("Error parsing JSON: \(error)")
                     completion(nil)
                 }
-            } else {
-                print("Error fetching restaurant data: \(error?.localizedDescription ?? "Unknown error")")
-                completion(nil)
             }
         }.resume()
-
     }
 }
+
+private struct Response: Decodable {
+    let results: [Result]
+}
+
+private struct Result: Decodable {
+    let name: String
+    let categories: [Category]
+    let location: Location
+}
+
+private struct Category: Decodable {
+    let name: String
+}
+
+private struct Location: Decodable {
+    let formatted_address: String
+}
+
+

@@ -12,7 +12,6 @@
 		D727EF3B2AF453C400A21EDF /* RestaurantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727EF3A2AF453C400A21EDF /* RestaurantService.swift */; };
 		D727EF3D2AF4540400A21EDF /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727EF3C2AF4540400A21EDF /* Restaurants.swift */; };
 		D727EF422AF456E700A21EDF /* RestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727EF412AF456E700A21EDF /* RestaurantView.swift */; };
-		D727EF462AF45C7C00A21EDF /* RestaurantResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727EF452AF45C7C00A21EDF /* RestaurantResponse.swift */; };
 		D761A8E62AEF6DDB00968955 /* Bite_SwipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A8E52AEF6DDB00968955 /* Bite_SwipeApp.swift */; };
 		D761A8EA2AEF6DDE00968955 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D761A8E92AEF6DDE00968955 /* Assets.xcassets */; };
 		D761A8EE2AEF6DDE00968955 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D761A8ED2AEF6DDE00968955 /* Preview Assets.xcassets */; };
@@ -46,7 +45,6 @@
 		D727EF3A2AF453C400A21EDF /* RestaurantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantService.swift; sourceTree = "<group>"; };
 		D727EF3C2AF4540400A21EDF /* Restaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		D727EF412AF456E700A21EDF /* RestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantView.swift; sourceTree = "<group>"; };
-		D727EF452AF45C7C00A21EDF /* RestaurantResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantResponse.swift; sourceTree = "<group>"; };
 		D761A8E22AEF6DDA00968955 /* Bite Swipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bite Swipe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D761A8E52AEF6DDB00968955 /* Bite_SwipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bite_SwipeApp.swift; sourceTree = "<group>"; };
 		D761A8E92AEF6DDE00968955 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				D727EF3C2AF4540400A21EDF /* Restaurants.swift */,
-				D727EF452AF45C7C00A21EDF /* RestaurantResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,7 +293,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D727EF462AF45C7C00A21EDF /* RestaurantResponse.swift in Sources */,
 				D761A9112AEF6DF300968955 /* HomeView.swift in Sources */,
 				D727EF392AF453B200A21EDF /* RestaurantDetailView.swift in Sources */,
 				D727EF372AF4536600A21EDF /* RestaurantViewModel.swift in Sources */,

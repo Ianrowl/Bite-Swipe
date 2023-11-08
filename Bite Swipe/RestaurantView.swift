@@ -11,24 +11,25 @@ struct RestaurantView: View {
     @ObservedObject var viewModel = RestaurantViewModel()
 
     var body: some View {
-        NavigationView {
-            List(viewModel.restaurants, id: \.name) { restaurant in
-                VStack(alignment: .leading) {
-                    Text(restaurant.name)
-                    Text(restaurant.address)
-                        .font(.subheadline)
-                }
+        List(viewModel.restaurants, id: \.name) { restaurant in
+            VStack(alignment: .leading) {
+                Text(restaurant.name)
+                    .font(.headline)
+                Text("Cuisine: \(restaurant.cuisine)")
+                Text("Location: \(restaurant.location)")
             }
-            .navigationBarTitle("Restaurants")
-            .onAppear {
-                viewModel.fetchRestaurants()
+        }
+        .onAppear {
+            viewModel.fetchRestaurants()
             }
         }
     }
-}
 
 struct RestaurantView_Previews: PreviewProvider {
     static var previews: some View {
-        RestaurantView(viewModel: RestaurantViewModel())
+        RestaurantView()
     }
 }
+
+
+
