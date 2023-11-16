@@ -8,16 +8,23 @@
 import Foundation
 
 class RestaurantService {
-//    private let apiURL = "https://api.foursquare.com/v3/places/search"
+    private let apiURL = "https://api.foursquare.com/v3/places/search?"
 //    private let apiURL = "https://api.foursquare.com/v3/places/search?near=Boulder,Colorado&limit=25"
-    private let apiURL = "https://api.foursquare.com/v3/places/search?radius=24000&limit=25"//Will likely keep editing this as the project goes on
+//    private let apiURL = "https://api.foursquare.com/v3/places/search?radius=24000&limit=25"//Will likely keep editing this as the project goes on
 
 
 
     private let apiKey = "fsq3kl7NeyCzFZSmIzk4VZaT3iww2HUeylc4XB3NA/crDPA="
 
-    func fetchRestaurants(completion: @escaping ([Restaurant]?) -> Void) {
-        guard let url = URL(string: apiURL) else {
+    func fetchRestaurants(zipCode: String, completion: @escaping ([Restaurant]?) -> Void) {
+        let dynamicApiURL = apiURL + "&near=" + zipCode + "&limit=40"
+
+//        guard URL(string: dynamicApiURL) != nil else {
+//            completion(nil)
+//            return
+//        }
+        
+        guard let url = URL(string: dynamicApiURL) else {
             completion(nil)
             return
         }
@@ -37,6 +44,7 @@ class RestaurantService {
                     let response = try decoder.decode(Response.self, from: data)
                     let restaurants = response.results.map { result in
                         return Restaurant(
+                            fsq_id: result.fsq_id,
                             name: result.name,
                             cuisine: result.categories.first?.name ?? "",
                             location: result.location.formatted_address
@@ -57,12 +65,12 @@ private struct Response: Decodable {
 }
 
 private struct Result: Decodable {
+        let fsq_id: String
     let name: String
     let categories: [Category]
     let location: Location
-    let photo: Photo? // Add a property for the photo data
+    let photo: Photo?
 
-    // Define the Photo struct
     struct Photo: Decodable {
         let url: String
     }
@@ -82,5 +90,3 @@ private struct Category: Decodable {
 private struct Location: Decodable {
     let formatted_address: String
 }
-
-

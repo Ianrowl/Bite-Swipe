@@ -8,21 +8,41 @@
 import SwiftUI
 
 struct RestaurantView: View {
+
     @ObservedObject var viewModel = RestaurantViewModel()
     @State private var currentIndex = 0
+
     
     var body: some View {
         VStack {
+            TextField("Enter Zip Code", text: $viewModel.zipCodeInput, onCommit: {
+                  viewModel.fetchRestaurants()
+              })
+              .textFieldStyle(RoundedBorderTextFieldStyle())
+//                  .padding()
+            Button(action: {
+                viewModel.fetchRestaurants()
+            }) {
+                Text("Submit")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding(10)
+//                        .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            }
+            
             if viewModel.restaurants.isEmpty {
                 ProgressView("Loading restaurants...")
             } else {
+
                 RestaurantCard(restaurant: viewModel.restaurants[currentIndex])
                     .onTapGesture {
                         withAnimation {
                             currentIndex = (currentIndex + 1) % viewModel.restaurants.count //Cycles continuously for now, will have it stop or reset in the future.
                         }
                     }
-                    .padding()
+                 .padding()
             }
         }
         .frame(maxHeight: .infinity)
@@ -30,6 +50,7 @@ struct RestaurantView: View {
         .onAppear {
             viewModel.fetchRestaurants()
         }
+
     }
 }
 
@@ -45,7 +66,10 @@ struct RestaurantCard: View {
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
                 .padding(50)
+            Text("fsq_id: \(restaurant.fsq_id)")
+
             Text("Cuisine: \(restaurant.cuisine)")
+                .padding(10)
             Text("Location: \(restaurant.location)")
             Spacer()
         }
