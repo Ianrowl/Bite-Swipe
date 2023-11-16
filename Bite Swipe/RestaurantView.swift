@@ -11,7 +11,7 @@ struct RestaurantView: View {
 
     @ObservedObject var viewModel = RestaurantViewModel()
     @State private var currentIndex = 0
-
+//    let skyBlue = Color(red: 0.4627, green: 0.8392, blue: 1.0)
     
     var body: some View {
         VStack {
@@ -19,7 +19,7 @@ struct RestaurantView: View {
                   viewModel.fetchRestaurants()
               })
               .textFieldStyle(RoundedBorderTextFieldStyle())
-//                  .padding()
+//                      .padding()
             Button(action: {
                 viewModel.fetchRestaurants()
             }) {
@@ -27,22 +27,26 @@ struct RestaurantView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding(10)
-//                        .frame(maxWidth: .infinity)
+    //                        .frame(maxWidth: .infinity)
                     .background(Color.blue)
                     .cornerRadius(10)
             }
-            
             if viewModel.restaurants.isEmpty {
                 ProgressView("Loading restaurants...")
             } else {
-
                 RestaurantCard(restaurant: viewModel.restaurants[currentIndex])
-                    .onTapGesture {
-                        withAnimation {
-                            currentIndex = (currentIndex + 1) % viewModel.restaurants.count //Cycles continuously for now, will have it stop or reset in the future.
-                        }
-                    }
-                 .padding()
+                    .gesture(
+                        DragGesture()
+                            .onEnded { gesture in
+                                if gesture.translation.width > 70 {
+                                    withAnimation {
+                                        currentIndex = (currentIndex + 1) % viewModel.restaurants.count
+                                    }
+                                }
+                            }
+                    )
+                
+                    .padding(15)
             }
         }
         .frame(maxHeight: .infinity)
@@ -76,7 +80,7 @@ struct RestaurantCard: View {
         .frame(maxWidth: .infinity)
         .background(moonGray)
         .cornerRadius(10)
-        .shadow(radius: 5)
+//        .shadow(radius: 5)
     }
 }
 
@@ -86,9 +90,5 @@ struct RestaurantView_Previews: PreviewProvider {
         RestaurantView()
     }
 }
-
-
-
-
 
 

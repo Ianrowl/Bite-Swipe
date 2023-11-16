@@ -18,11 +18,6 @@ class RestaurantService {
 
     func fetchRestaurants(zipCode: String, completion: @escaping ([Restaurant]?) -> Void) {
         let dynamicApiURL = apiURL + "&near=" + zipCode + "&limit=40"
-
-//        guard URL(string: dynamicApiURL) != nil else {
-//            completion(nil)
-//            return
-//        }
         
         guard let url = URL(string: dynamicApiURL) else {
             completion(nil)
@@ -65,7 +60,7 @@ private struct Response: Decodable {
 }
 
 private struct Result: Decodable {
-        let fsq_id: String
+    let fsq_id: String
     let name: String
     let categories: [Category]
     let location: Location
@@ -75,13 +70,6 @@ private struct Result: Decodable {
         let url: String
     }
 }
-
-
-//private struct Result: Decodable {
-//    let name: String
-//    let categories: [Category]
-//    let location: Location
-//}
 
 private struct Category: Decodable {
     let name: String
