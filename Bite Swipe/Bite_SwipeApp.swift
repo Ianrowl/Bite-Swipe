@@ -23,7 +23,8 @@ struct YourApp: App {
     var body: some Scene {
         WindowGroup {
 //            RestaurantView(viewModel: RestaurantViewModel())
-            RestaurantView()
+//            RestaurantView()
+            NavView()
         }
     }
 }
