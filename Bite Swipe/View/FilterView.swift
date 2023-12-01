@@ -20,7 +20,7 @@ struct FilterView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
 
-
+                Section(header: Text("Select Cuisine")) {
                     Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
                         Text("All Cuisines").tag(nil as String?)
                         Text("Italian").tag("Italian")
@@ -51,17 +51,13 @@ struct FilterView: View {
                                     // Add any additional styling or formatting here
                             }
                         }
-//                        .onDelete { indexSet in
-//                            // Handle deletion if needed
-//                        }
                     }
                 }
-
             }
             .navigationTitle("Filter")
         }
     }
-
+}
 
 
 struct FilterView_Previews: PreviewProvider {
