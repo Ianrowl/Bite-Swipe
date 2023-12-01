@@ -14,9 +14,6 @@ class FilterViewModel: ObservableObject {
     
     // Other filter options can be added as needed
     
-    func toggleLikedFilter() {
-        showOnlyLiked.toggle()
-    }
     
     func updateLikedRestaurants(_ likedRestaurants: [String]) {
         self.likedRestaurants = likedRestaurants

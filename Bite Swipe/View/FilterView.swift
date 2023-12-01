@@ -20,8 +20,6 @@ struct FilterView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
 
-                Section(header: Text("Filter Options")) {
-                    Toggle("Show Only Liked Restaurants", isOn: $filterViewModel.showOnlyLiked)
 
                     Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
                         Text("All Cuisines").tag(nil as String?)
@@ -63,7 +61,7 @@ struct FilterView: View {
             .navigationTitle("Filter")
         }
     }
-}
+
 
 
 struct FilterView_Previews: PreviewProvider {
