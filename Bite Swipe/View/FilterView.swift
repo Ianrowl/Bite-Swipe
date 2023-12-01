@@ -8,38 +8,68 @@
 import SwiftUI
 
 struct FilterView: View {
-    @ObservedObject var viewModel = FilterViewModel()
-    @State private var showMapMessage = false
+    @EnvironmentObject var filterViewModel: FilterViewModel
+    @EnvironmentObject var restaurantViewModel: RestaurantViewModel
+    @State private var searchText: String = ""
 
     var body: some View {
         NavigationView {
-            VStack {
-                Button(action: {
-                    // Toggle the showMapMessage variable
-                    showMapMessage.toggle()
-                }) {
-                    Text("Show Filter")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+            Form {
+                Section(header: Text("Search")) {
+                    TextField("Search", text: $searchText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
 
-                if showMapMessage {
-                    Text("Filter")
-                        .font(.title)
-                        .padding()
+                Section(header: Text("Filter Options")) {
+                    Toggle("Show Only Liked Restaurants", isOn: $filterViewModel.showOnlyLiked)
+
+                    Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
+                        Text("All Cuisines").tag(nil as String?)
+                        Text("Italian").tag("Italian")
+                        Text("Mexican").tag("Mexican")
+                        // Add more cuisine options as needed
+                    }
+                    .pickerStyle(WheelPickerStyle())
                 }
+
+                Section(header: Text("Liked Restaurants")) {
+                    Text("Debug Info")
+                        .onAppear {
+                            print("Liked Restaurants IDs: \(restaurantViewModel.likedRestaurants)")
+                            print("Liked Restaurants Names:")
+                            for fsq_id in restaurantViewModel.likedRestaurants {
+                                if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
+                                    print(restaurant.name)
+                                }
+                            }
+                        }
+
+                    if restaurantViewModel.likedRestaurants.isEmpty {
+                        Text("No liked restaurants found.")
+                    } else {
+                        ForEach(restaurantViewModel.likedRestaurants, id: \.self) { fsq_id in
+                            if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
+                                Text(restaurant.name)
+                                    // Add any additional styling or formatting here
+                            }
+                        }
+//                        .onDelete { indexSet in
+//                            // Handle deletion if needed
+//                        }
+                    }
+                }
+
             }
-            .padding()
-            .navigationTitle("Filter") // Set the title for the navigation bar
+            .navigationTitle("Filter")
         }
     }
 }
 
-struct FilterView_Previews: PreviewProvider {
-    static var previews: some View {
-        FilterView()
-    }
-}
 
+struct FilterView_Previews: PreviewProvider {
+        static var previews: some View {
+            FilterView()
+                .environmentObject(RestaurantViewModel())  // Provide an instance of RestaurantViewModel
+                .environmentObject(FilterViewModel())      // Provide an instance of FilterViewModel
+        }
+    }

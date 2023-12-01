@@ -8,17 +8,14 @@
 import Foundation
 
 class RestaurantService {
-    private let apiURL = "https://api.foursquare.com/v3/places/search?"
-//    private let apiURL = "https://api.foursquare.com/v3/places/search?near=Boulder,Colorado&limit=25"
-//    private let apiURL = "https://api.foursquare.com/v3/places/search?radius=24000&limit=25"//Will likely keep editing this as the project goes on
-
-
-
+    private let apiURL = "https://api.foursquare.com/v3/places/search?categories=13000"
     private let apiKey = "fsq3kl7NeyCzFZSmIzk4VZaT3iww2HUeylc4XB3NA/crDPA="
+//    private let photoApiURL = "https://api.foursquare.com/v3/places/4be5b5fcbcef2d7fc53004e5/photos" // Add the photo API URL
+    private let photoApiURL = "https://api.foursquare.com/v3/places/" // Add the photo API URL
 
     func fetchRestaurants(zipCode: String, completion: @escaping ([Restaurant]?) -> Void) {
-        let dynamicApiURL = apiURL + "&near=" + zipCode + "&limit=40"
-        
+        let dynamicApiURL = apiURL + "&near=" + zipCode + "&limit=50"
+
         guard let url = URL(string: dynamicApiURL) else {
             completion(nil)
             return
@@ -53,7 +50,44 @@ class RestaurantService {
             }
         }.resume()
     }
+
+    func fetchPhotos(venueID: String, completion: @escaping (Swift.Result<[Photo]?, Error>) -> Void) {
+        let headers = [
+            "accept": "application/json",
+            "Authorization": apiKey
+        ]
+
+        guard let url = URL(string: "\(photoApiURL)\(venueID)/photos") else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+
+        let session = URLSession.shared
+
+        let dataTask = session.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let photos = try decoder.decode([Photo].self, from: data)
+                    completion(.success(photos))
+                } catch {
+                    completion(.failure(error))
+                }
+            } else {
+                completion(.failure(NSError(domain: "Invalid response", code: 0, userInfo: nil)))
+            }
+        }
+
+        dataTask.resume()
+    }
 }
+
 
 private struct Response: Decodable {
     let results: [Result]
@@ -64,17 +98,33 @@ private struct Result: Decodable {
     let name: String
     let categories: [Category]
     let location: Location
-    let photo: Photo?
 
-    struct Photo: Decodable {
-        let url: String
+    struct Category: Decodable {
+        let name: String
+    }
+
+    struct Location: Decodable {
+        let formatted_address: String
     }
 }
 
-private struct Category: Decodable {
-    let name: String
+struct Photo: Decodable {
+    let id: String
+    let createdAt: String
+    let prefix: String
+    let suffix: String
+    let width: Int
+    let height: Int
+    let classifications: [String]?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case createdAt = "created_at"
+        case prefix
+        case suffix
+        case width
+        case height
+        case classifications
+    }
 }
 
-private struct Location: Decodable {
-    let formatted_address: String
-}

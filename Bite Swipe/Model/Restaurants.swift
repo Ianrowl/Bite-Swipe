@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct Restaurant: Identifiable {
+struct Restaurant: Equatable {
     let fsq_id: String
-    let id = UUID()
     let name: String
     let cuisine: String
     let location: String
+    var photo: String?
+    
 }

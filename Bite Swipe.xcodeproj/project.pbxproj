@@ -23,6 +23,7 @@
 		D761A8F82AEF6DDE00968955 /* Bite_SwipeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A8F72AEF6DDE00968955 /* Bite_SwipeTests.swift */; };
 		D761A9022AEF6DDE00968955 /* Bite_SwipeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A9012AEF6DDE00968955 /* Bite_SwipeUITests.swift */; };
 		D761A9042AEF6DDE00968955 /* Bite_SwipeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D761A9032AEF6DDE00968955 /* Bite_SwipeUITestsLaunchTests.swift */; };
+		D7E877602B195AEC00145D2B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D7E8775F2B195AEC00145D2B /* Kingfisher */; };
 		D7F7030E2AFB4D9700128EFD /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = D7F7030D2AFB4D9700128EFD /* URLImage */; };
 		D7F703102AFB4D9700128EFD /* URLImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = D7F7030F2AFB4D9700128EFD /* URLImageStore */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7E877602B195AEC00145D2B /* Kingfisher in Frameworks */,
 				D7F703102AFB4D9700128EFD /* URLImageStore in Frameworks */,
 				D7F7030E2AFB4D9700128EFD /* URLImage in Frameworks */,
 			);
@@ -203,6 +205,7 @@
 			packageProductDependencies = (
 				D7F7030D2AFB4D9700128EFD /* URLImage */,
 				D7F7030F2AFB4D9700128EFD /* URLImageStore */,
+				D7E8775F2B195AEC00145D2B /* Kingfisher */,
 			);
 			productName = "Bite Swipe";
 			productReference = D761A8E22AEF6DDA00968955 /* Bite Swipe.app */;
@@ -278,6 +281,7 @@
 			mainGroup = D761A8D92AEF6DDA00968955;
 			packageReferences = (
 				D7F7030C2AFB4C3600128EFD /* XCRemoteSwiftPackageReference "url-image" */,
+				D7E8775E2B195AEC00145D2B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = D761A8E32AEF6DDA00968955 /* Products */;
 			projectDirPath = "";
@@ -690,6 +694,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D7E8775E2B195AEC00145D2B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
 		D7F7030C2AFB4C3600128EFD /* XCRemoteSwiftPackageReference "url-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
@@ -701,6 +713,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D7E8775F2B195AEC00145D2B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7E8775E2B195AEC00145D2B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		D7F7030D2AFB4D9700128EFD /* URLImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D7F7030C2AFB4C3600128EFD /* XCRemoteSwiftPackageReference "url-image" */;
