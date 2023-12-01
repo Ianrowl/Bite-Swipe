@@ -12,8 +12,6 @@ class FilterViewModel: ObservableObject {
     @Published var selectedCuisine: String?
     @Published var showOnlyLiked: Bool = false
     
-    // Other filter options can be added as needed
-    
     
     func updateLikedRestaurants(_ likedRestaurants: [String]) {
         self.likedRestaurants = likedRestaurants
@@ -23,6 +21,5 @@ class FilterViewModel: ObservableObject {
         selectedCuisine = cuisine
     }
     
-    // Add more filter methods as needed
 }
 

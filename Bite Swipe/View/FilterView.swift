@@ -23,47 +23,62 @@ struct FilterView: View {
                 Section(header: Text("Select Cuisine")) {
                     Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
                         Text("All Cuisines").tag(nil as String?)
-                        Text("Italian").tag("Italian")
-                        Text("Mexican").tag("Mexican")
-                        // Add more cuisine options as needed
+                        ForEach(likedCuisines().sorted(), id: \.self) { cuisine in
+                            Text(cuisine).tag(cuisine as String?)
+                        }
                     }
                     .pickerStyle(WheelPickerStyle())
-                }
+                    .frame(height: 120)
+                 }
 
                 Section(header: Text("Liked Restaurants")) {
-                    Text("Debug Info")
-                        .onAppear {
-                            print("Liked Restaurants IDs: \(restaurantViewModel.likedRestaurants)")
-                            print("Liked Restaurants Names:")
-                            for fsq_id in restaurantViewModel.likedRestaurants {
-                                if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
-                                    print(restaurant.name)
-                                }
-                            }
-                        }
-
                     if restaurantViewModel.likedRestaurants.isEmpty {
                         Text("No liked restaurants found.")
                     } else {
-                        ForEach(restaurantViewModel.likedRestaurants, id: \.self) { fsq_id in
+                        ForEach(filteredLikedRestaurants(), id: \.self) { fsq_id in
                             if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
                                 Text(restaurant.name)
-                                    // Add any additional styling or formatting here
                             }
                         }
                     }
                 }
             }
+            .listStyle(GroupedListStyle())
             .navigationTitle("Filter")
         }
     }
-}
 
+    private func likedCuisines() -> [String] {
+        var cuisines = Set<String>()
+
+        for fsq_id in restaurantViewModel.likedRestaurants {
+            if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
+                cuisines.insert(restaurant.cuisine)
+            }
+        }
+        return Array(cuisines)
+    }
+
+    private func filteredLikedRestaurants() -> [String] { //With help from ChatGPT
+        let filteredRestaurants = restaurantViewModel.likedRestaurants.filter { fsq_id in
+            guard let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) else {
+                return false
+            }
+
+            let matchesSearchText = searchText.isEmpty || restaurant.name.localizedCaseInsensitiveContains(searchText)
+            let matchesSelectedCuisine = filterViewModel.selectedCuisine == nil || (restaurant.cuisine == filterViewModel.selectedCuisine)
+
+            return matchesSearchText && matchesSelectedCuisine
+        }
+
+        return filteredRestaurants
+    }
+}
 
 struct FilterView_Previews: PreviewProvider {
         static var previews: some View {
             FilterView()
-                .environmentObject(RestaurantViewModel())  // Provide an instance of RestaurantViewModel
-                .environmentObject(FilterViewModel())      // Provide an instance of FilterViewModel
+                .environmentObject(RestaurantViewModel())
+                .environmentObject(FilterViewModel())
         }
     }

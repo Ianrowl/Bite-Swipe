@@ -110,7 +110,7 @@ struct RestaurantCard: View {
             
             Text("Cuisine: \(restaurant.cuisine)")
                 .padding(10)
-            Text("ID: \(restaurant.fsq_id)")
+//            Text("ID: \(restaurant.fsq_id)")
                 .padding(10)
             
             Text("Location: \(restaurant.location)")

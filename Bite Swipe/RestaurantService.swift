@@ -38,7 +38,9 @@ class RestaurantService {
                         return Restaurant(
                             fsq_id: result.fsq_id,
                             name: result.name,
-                            cuisine: result.categories.first?.name ?? "",
+//                            cuisine: result.categories.first?.name ?? "",
+                            cuisine: result.categories.first?.short_name ?? "",
+//                            cuisine: result.categories[0].short_name,
                             location: result.location.formatted_address
                         )
                     }
@@ -101,6 +103,7 @@ private struct Result: Decodable {
 
     struct Category: Decodable {
         let name: String
+        let short_name: String
     }
 
     struct Location: Decodable {
@@ -127,4 +130,3 @@ struct Photo: Decodable {
         case classifications
     }
 }
-

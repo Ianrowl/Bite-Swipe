@@ -10,7 +10,7 @@ import Foundation
 class RestaurantViewModel: ObservableObject {
     @Published var zipCodeInput = ""
     @Published var currentIndex = 0
-    @Published var currentPhotoIndex = 0 // Add this line
+    @Published var currentPhotoIndex = 0
 
     @Published var restaurants: [Restaurant] = []
     private let restaurantService = RestaurantService()
@@ -18,13 +18,14 @@ class RestaurantViewModel: ObservableObject {
     private let likedKey = "likedRestaurants"
     private let dislikedKey = "dislikedRestaurants"
 
-    var likedRestaurants: [String] = [] // Assuming fsq_id is a String, adjust accordingly
-    
+    var likedRestaurants: [String] = []
 
     func likeRestaurant(_ restaurantID: String) {
         if !likedRestaurants.contains(restaurantID) {
             likedRestaurants.append(restaurantID)
             print("Liked Restaurants: \(likedRestaurants)")
+//            print("hello")
+
         }
     }
 
