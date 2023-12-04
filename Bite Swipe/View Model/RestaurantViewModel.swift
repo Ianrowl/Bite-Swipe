@@ -18,7 +18,7 @@ class RestaurantViewModel: ObservableObject {
     private let likedKey = "likedRestaurants"
     private let dislikedKey = "dislikedRestaurants"
 
-    var likedRestaurants: [String] = []
+    @Published var likedRestaurants: [String] = []
 
     func likeRestaurant(_ restaurantID: String) {
         if !likedRestaurants.contains(restaurantID) {
