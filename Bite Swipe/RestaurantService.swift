@@ -15,18 +15,18 @@ class RestaurantService {
 
     func fetchRestaurants(zipCode: String, completion: @escaping ([Restaurant]?) -> Void) {
         let dynamicApiURL = apiURL + "&near=" + zipCode + "&limit=50"
-
+        
         guard let url = URL(string: dynamicApiURL) else {
             completion(nil)
             return
         }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "accept")
         request.addValue(apiKey, forHTTPHeaderField: "Authorization")
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        
+        URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if let error = error {
                 print("Error: \(error)")
                 completion(nil)
@@ -38,10 +38,11 @@ class RestaurantService {
                         return Restaurant(
                             fsq_id: result.fsq_id,
                             name: result.name,
-//                            cuisine: result.categories.first?.name ?? "",
                             cuisine: result.categories.first?.short_name ?? "",
-//                            cuisine: result.categories[0].short_name,
-                            location: result.location.formatted_address
+                            location: result.location.formatted_address,
+//                            postcode: result.location.postcode
+                            latitude: result.geocodes.main.latitude,
+                            longitude: result.geocodes.main.longitude
                         )
                     }
                     completion(restaurants)
@@ -51,6 +52,7 @@ class RestaurantService {
                 }
             }
         }.resume()
+        
     }
 
     func fetchPhotos(venueID: String, completion: @escaping (Swift.Result<[Photo]?, Error>) -> Void) {
@@ -100,6 +102,7 @@ private struct Result: Decodable {
     let name: String
     let categories: [Category]
     let location: Location
+    let geocodes: Geocodes
 
     struct Category: Decodable {
         let name: String
@@ -108,6 +111,15 @@ private struct Result: Decodable {
 
     struct Location: Decodable {
         let formatted_address: String
+    }
+
+    struct Geocodes: Decodable {
+        let main: MainGeocode
+
+        struct MainGeocode: Decodable {
+            let latitude: Double
+            let longitude: Double
+        }
     }
 }
 
@@ -130,3 +142,4 @@ struct Photo: Decodable {
         case classifications
     }
 }
+

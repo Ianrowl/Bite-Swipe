@@ -11,6 +11,7 @@ struct FilterView: View {
     @EnvironmentObject var filterViewModel: FilterViewModel
     @EnvironmentObject var restaurantViewModel: RestaurantViewModel
     @State private var searchText: String = ""
+    
 
     var body: some View {
         NavigationView {
@@ -37,7 +38,12 @@ struct FilterView: View {
                     } else {
                         ForEach(filteredLikedRestaurants(), id: \.self) { fsq_id in
                             if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
-                                Text(restaurant.name)
+                                Button(action: {
+                                    filterViewModel.selectedRestaurant = restaurant
+                                    filterViewModel.isModalPresented.toggle()
+                                }) {
+                                    Text(restaurant.name)
+                                }
                             }
                         }
                     }
@@ -45,6 +51,12 @@ struct FilterView: View {
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("Filter")
+            .sheet(isPresented: $filterViewModel.isModalPresented) {
+                if let selectedRestaurant = filterViewModel.selectedRestaurant {
+                    ModalSheet(restaurant: selectedRestaurant)
+                        .environmentObject(restaurantViewModel) // Pass the environment object to ModalSheet
+                }
+            }
         }
     }
 
@@ -75,10 +87,10 @@ struct FilterView: View {
     }
 }
 
-struct FilterView_Previews: PreviewProvider {
-        static var previews: some View {
-            FilterView()
-                .environmentObject(RestaurantViewModel())
-                .environmentObject(FilterViewModel())
-        }
-    }
+//struct FilterView_Previews: PreviewProvider {
+//        static var previews: some View {
+//            FilterView()
+//                .environmentObject(RestaurantViewModel())  // Provide an instance of RestaurantViewModel
+//                .environmentObject(FilterViewModel())      // Provide an instance of FilterViewModel
+//        }
+//}

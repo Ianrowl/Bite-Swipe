@@ -14,18 +14,30 @@ class RestaurantViewModel: ObservableObject {
 
     @Published var restaurants: [Restaurant] = []
     private let restaurantService = RestaurantService()
+    @Published var currentRestaurant: Restaurant?
+    @Published var photos: [Photo] = []
+    
+    @Published var selectedPhoto: Photo?
+    
+    @Published var likedRestaurants: [String] = []
+
     
     private let likedKey = "likedRestaurants"
     private let dislikedKey = "dislikedRestaurants"
 
-    @Published var likedRestaurants: [String] = []
-
+    func createPhotoURL(photo: Photo) -> URL {
+        let urlString = "\(photo.prefix)original\(photo.suffix)"
+        return URL(string: urlString)!
+    }
+    
+    func resetPhotos() {
+        photos = []
+    }
+    
     func likeRestaurant(_ restaurantID: String) {
         if !likedRestaurants.contains(restaurantID) {
             likedRestaurants.append(restaurantID)
             print("Liked Restaurants: \(likedRestaurants)")
-//            print("hello")
-
         }
     }
 
@@ -45,4 +57,24 @@ class RestaurantViewModel: ObservableObject {
             }
         }
     }
+    
+    func fetchPhotos(for restaurant: Restaurant) {
+//        selectedPhoto = photos.randomElement()
+
+        RestaurantService().fetchPhotos(venueID: restaurant.fsq_id) { result in
+            switch result {
+            case .success(let fetchedPhotos):
+                DispatchQueue.main.async {
+                    if let fetchedPhotos = fetchedPhotos, !fetchedPhotos.isEmpty {
+                        self.photos = fetchedPhotos
+                    } else {
+                        self.photos = []
+                    }
+                }
+            case .failure(let error):
+                print("Error fetching photos: \(error)")
+            }
+        }
+    }
 }
+

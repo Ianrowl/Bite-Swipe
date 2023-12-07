@@ -9,16 +9,11 @@ import SwiftUI
 import Kingfisher
 import Combine
 
-
 struct RestaurantView: View {
     @EnvironmentObject var restaurantViewModel: RestaurantViewModel
     @EnvironmentObject var filterViewModel: FilterViewModel
-    @State private var currentIndex = 0
-    @State private var currentPhotoIndex = 0
     @State private var currentRestaurantID: String?
     
-//    var restaurant: Restaurant
-
     var body: some View {
         NavigationView {
             VStack {
@@ -42,24 +37,24 @@ struct RestaurantView: View {
                             .cornerRadius(10)
                     }
                     
-                    RestaurantCard(currentPhotoIndex: $currentPhotoIndex, currentRestaurantID: $currentRestaurantID, restaurant: restaurantViewModel.restaurants[currentIndex])
+                    RestaurantCard(currentPhotoIndex: $restaurantViewModel.currentPhotoIndex, currentRestaurantID: $currentRestaurantID, restaurant: restaurantViewModel.restaurants[restaurantViewModel.currentIndex])
                         .gesture(
                             DragGesture()
                                 .onEnded { gesture in
                                     withAnimation {
                                         if gesture.translation.width < -70 {
-                                            currentIndex = (currentIndex - 1 + restaurantViewModel.restaurants.count) % restaurantViewModel.restaurants.count
+                                            restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
                 
-                                            restaurantViewModel.dislikeRestaurant(restaurantViewModel.restaurants[currentIndex].fsq_id)
+                                            restaurantViewModel.dislikeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex].fsq_id)
                                             
                                             
                                         } else if gesture.translation.width > 70 {
-                                            currentIndex = (currentIndex + 1) % restaurantViewModel.restaurants.count
-                                            restaurantViewModel.likeRestaurant(restaurantViewModel.restaurants[currentIndex-1].fsq_id)
+                                            restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
+                                            restaurantViewModel.likeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex-1].fsq_id)
                                             
                                         }
                                     }
-                                    currentRestaurantID = restaurantViewModel.restaurants[currentIndex].fsq_id
+                                    currentRestaurantID = restaurantViewModel.restaurants[restaurantViewModel.currentIndex].fsq_id
                                 }
                         )
                         .padding(15)
@@ -76,87 +71,75 @@ struct RestaurantView: View {
     }
 }
 
+
+
 struct RestaurantCard: View {
     
     let moonGray = Color(white: 0.9, opacity: 0.7) // Found this color
-    
-
-    @State private var selectedPhoto: Photo?
-    @State private var photos: [Photo] = []
-
+    @EnvironmentObject var restaurantViewModel: RestaurantViewModel
     
     @Binding var currentPhotoIndex: Int
     @Binding var currentRestaurantID: String?
     
     var restaurant: Restaurant
+    
     var body: some View {
         VStack {
             Text(restaurant.name)
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
                 .padding(20)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(photos, id: \.id) { photo in
-                        KFImage.url(createPhotoURL(photo: photo))
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 200, height: 150) // Adjust the width and height as needed
-                            .cornerRadius(10)
+            if restaurantViewModel.photos.isEmpty {
+                PlaceholderView()
+                    .frame(width: 200, height: 250)
+                    .cornerRadius(10)
+
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(restaurantViewModel.photos, id: \.id) { photo in
+                            KFImage.url(restaurantViewModel.createPhotoURL(photo: photo))
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 250)
+                                .cornerRadius(10)
+                        }
                     }
                 }
             }
+
             
             Text("Cuisine: \(restaurant.cuisine)")
                 .padding(10)
-//            Text("ID: \(restaurant.fsq_id)")
-                .padding(10)
+            Text("Latitude: \(restaurant.latitude)")
+            Text("Longitude: \(restaurant.longitude)")
             
             Text("Location: \(restaurant.location)")
             
             Spacer()
         }
         .onAppear {
-            fetchPhotos(for: restaurant)
+            restaurantViewModel.fetchPhotos(for: restaurant)
         }
         .onChange(of: restaurant) { _, _ in
-//            selectedPhoto = photos.randomElement()
-            selectedPhoto = photos.randomElement()
-            fetchPhotos(for: restaurant)
-            
+//            restaurantViewModel.selectedPhoto = restaurantViewModel.photos.randomElement()
+            restaurantViewModel.resetPhotos()
+
+            restaurantViewModel.fetchPhotos(for: restaurant)
         }
 
         .frame(maxWidth: .infinity)
         .background(moonGray)
         .cornerRadius(10)
     }
-    
-    private func createPhotoURL(photo: Photo) -> URL {
-        let urlString = "\(photo.prefix)original\(photo.suffix)" // You can modify the size as needed
-        return URL(string: urlString)!
-    }
-    
-    func fetchPhotos(for restaurant: Restaurant) {
-        selectedPhoto = photos.randomElement()
-
-        RestaurantService().fetchPhotos(venueID: restaurant.fsq_id) { result in
-            switch result {
-            case .success(let fetchedPhotos):
-                DispatchQueue.main.async {
-                    if let fetchedPhotos = fetchedPhotos, !fetchedPhotos.isEmpty {
-                        self.photos = fetchedPhotos
-                    } else {
-                        self.photos = []
-                    }
-                }
-            case .failure(let error):
-                print("Error fetching photos: \(error)")
-            }
-        }
-    }
 }
 
+struct PlaceholderView: View {
+    var body: some View {
+        Rectangle()
+            .foregroundColor(Color.gray.opacity(0.5))
+    }
+}
 //struct RestaurantView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        RestaurantView()
@@ -164,3 +147,4 @@ struct RestaurantCard: View {
 //            .environmentObject(FilterViewModel())      // Provide an instance of FilterViewModel
 //    }
 //}
+

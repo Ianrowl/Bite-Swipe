@@ -10,8 +10,8 @@ import Foundation
 class FilterViewModel: ObservableObject {
     @Published var likedRestaurants: [String] = []
     @Published var selectedCuisine: String?
-    @Published var showOnlyLiked: Bool = false
-    
+    @Published var selectedRestaurant: Restaurant?
+    @Published var isModalPresented = false
     
     func updateLikedRestaurants(_ likedRestaurants: [String]) {
         self.likedRestaurants = likedRestaurants

@@ -12,6 +12,6 @@ struct Restaurant: Equatable {
     let name: String
     let cuisine: String
     let location: String
-    var photo: String?
-    
+    let latitude: Double
+    let longitude: Double
 }
