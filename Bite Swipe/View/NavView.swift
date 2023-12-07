@@ -7,11 +7,13 @@
 
 import SwiftUI
 import Kingfisher
+import MapKit
 
 struct NavView: View {
     @State private var selectedTab = 0
     @ObservedObject var restaurantViewModel = RestaurantViewModel()
     @ObservedObject var filterViewModel = FilterViewModel()
+    @StateObject var mapViewModel = MapViewModel()
 
     var body: some View {
         NavigationView {
@@ -34,48 +36,22 @@ struct NavView: View {
             }
             .environmentObject(restaurantViewModel)
             .environmentObject(filterViewModel)
+            .environmentObject(mapViewModel)
         }
     }
 }
 
 struct ModalSheet: View {
-    @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var restaurantViewModel: RestaurantViewModel
-    
+    @EnvironmentObject var mapViewModel: MapViewModel
     var restaurant: Restaurant
-        
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        VStack {
-            Text(restaurant.name)
-                .font(.largeTitle)
-                .multilineTextAlignment(.center)
-                .padding(20)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(restaurantViewModel.photos, id: \.id) { photo in
-                        KFImage.url(restaurantViewModel.createPhotoURL(photo: photo))
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 200, height: 250)
-                            .cornerRadius(10)
-                    }
-                }
-            }
-            
-            Text("Cuisine: \(restaurant.cuisine)")
-                .padding(10)
-            
-            NavigationLink(destination: MapView()) {
-                Text("Restaurant: \(restaurant.name)")
-            }
- 
+        Map()
+        Button("Close") {
+            dismiss()
         }
         .padding()
-        .onAppear {
-            restaurantViewModel.resetPhotos()
-            restaurantViewModel.fetchPhotos(for: restaurant)
-        }
     }
 }
 

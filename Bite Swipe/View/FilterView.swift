@@ -10,9 +10,10 @@ import SwiftUI
 struct FilterView: View {
     @EnvironmentObject var filterViewModel: FilterViewModel
     @EnvironmentObject var restaurantViewModel: RestaurantViewModel
+    @EnvironmentObject var mapViewModel: MapViewModel
+
     @State private var searchText: String = ""
     
-
     var body: some View {
         NavigationView {
             Form {
@@ -21,7 +22,7 @@ struct FilterView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
 
-                Section(header: Text("Select Cuisine")) {
+                Section(header: Text("Filter Cuisine")) {
                     Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
                         Text("All Cuisines").tag(nil as String?)
                         ForEach(likedCuisines().sorted(), id: \.self) { cuisine in
@@ -32,16 +33,13 @@ struct FilterView: View {
                     .frame(height: 120)
                  }
 
-                Section(header: Text("Liked Restaurants")) {
+                Section(header: Text("Favorited Restaurants")) {
                     if restaurantViewModel.likedRestaurants.isEmpty {
                         Text("No liked restaurants found.")
                     } else {
                         ForEach(filteredLikedRestaurants(), id: \.self) { fsq_id in
                             if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
-                                Button(action: {
-                                    filterViewModel.selectedRestaurant = restaurant
-                                    filterViewModel.isModalPresented.toggle()
-                                }) {
+                                NavigationLink(destination: FavView(restaurant: restaurant)) {
                                     Text(restaurant.name)
                                 }
                             }
@@ -51,12 +49,6 @@ struct FilterView: View {
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("Filter")
-            .sheet(isPresented: $filterViewModel.isModalPresented) {
-                if let selectedRestaurant = filterViewModel.selectedRestaurant {
-                    ModalSheet(restaurant: selectedRestaurant)
-                        .environmentObject(restaurantViewModel) // Pass the environment object to ModalSheet
-                }
-            }
         }
     }
 
