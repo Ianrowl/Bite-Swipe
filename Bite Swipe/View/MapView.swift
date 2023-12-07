@@ -10,11 +10,10 @@ import SwiftUI
 
 struct MapView: View {
         
-        @ObservedObject var viewModel = FilterViewModel()
-        @State private var showMapMessage = false
+    @ObservedObject var viewModel = FilterViewModel()
+    @State private var showMapMessage = false
         
     var body: some View {
-        NavigationView {
             VStack {
                 Button(action: {
                     // Toggle the showMapMessage variable
@@ -34,10 +33,9 @@ struct MapView: View {
                 }
             }
             .padding()
-            .navigationTitle("Map") // Set the title for the navigation bar
         }
     }
-    }
+    
     
     struct MapView_Previews: PreviewProvider {
         static var previews: some View {

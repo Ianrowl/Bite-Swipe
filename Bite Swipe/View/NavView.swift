@@ -65,11 +65,15 @@ struct ModalSheet: View {
             
             Text("Cuisine: \(restaurant.cuisine)")
                 .padding(10)
+            
+            NavigationLink(destination: MapView()) {
+                Text("Restaurant: \(restaurant.name)")
+            }
+ 
         }
         .padding()
         .onAppear {
             restaurantViewModel.resetPhotos()
-
             restaurantViewModel.fetchPhotos(for: restaurant)
         }
     }
