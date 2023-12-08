@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import MapKit
 
 class MapViewModel: ObservableObject {
+    @Published var centerCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+
 }

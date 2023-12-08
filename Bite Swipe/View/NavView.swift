@@ -46,8 +46,33 @@ struct ModalSheet: View {
     var restaurant: Restaurant
     @Environment(\.dismiss) var dismiss
     
+    @State private var showAllRestaurants = false
+
     var body: some View {
-        Map()
+        Map {
+            ForEach([restaurant], id: \.id) { restaurant in //Help from Josh's code and GPT
+                Annotation(restaurant.name, coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
+                    NavigationLink {
+                        FavView(restaurant: restaurant)
+                    } label: {
+                        Image("BiteSwipeMarker")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
+                            .shadow(radius: 60)
+                    }
+                }
+            }
+        }
+        .onAppear {
+            mapViewModel.centerCoordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
+        }
+        .mapStyle(.imagery(elevation: .realistic))
+        .mapControls {
+            MapUserLocationButton()
+            MapCompass()
+        }
+        
         Button("Close") {
             dismiss()
         }

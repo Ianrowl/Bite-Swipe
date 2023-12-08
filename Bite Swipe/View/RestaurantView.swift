@@ -110,11 +110,12 @@ struct RestaurantCard: View {
 
             
             Text("Cuisine: \(restaurant.cuisine)")
-                .padding(10)
-            Text("Latitude: \(restaurant.latitude)")
-            Text("Longitude: \(restaurant.longitude)")
+                .padding(5)
             
             Text("Location: \(restaurant.location)")
+                .multilineTextAlignment(.center)
+
+                .padding(15)
             
             Spacer()
         }
