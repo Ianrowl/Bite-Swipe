@@ -8,7 +8,8 @@
 import Foundation
 
 class RestaurantViewModel: ObservableObject {
-    @Published var zipCodeInput = ""
+//    @Published var zipCodeInput = ""
+    @Published var zipCodeInput: String = ""
     @Published var currentIndex = 0
     @Published var currentPhotoIndex = 0
 
@@ -16,6 +17,8 @@ class RestaurantViewModel: ObservableObject {
     private let restaurantService = RestaurantService()
     @Published var currentRestaurant: Restaurant?
     @Published var photos: [Photo] = []
+    
+    var lastFetchedZipCode: String?
     
     @Published var selectedPhoto: Photo?
     
@@ -57,7 +60,59 @@ class RestaurantViewModel: ObservableObject {
             }
         }
     }
-    
+
+//    func fetchRestaurants() {
+//        restaurantService.fetchRestaurants(zipCode: zipCodeInput) { [weak self] newRestaurants in
+//            if let newRestaurants = newRestaurants {
+//                DispatchQueue.main.async {
+//                    if self?.zipCodeInput == self?.lastFetchedZipCode {
+//                        // Append the new data if the zip code is the same
+//                        self?.restaurants.append(contentsOf: newRestaurants)
+//                    } else {
+//                        // Replace the existing data if the zip code is different
+//                        self?.restaurants = newRestaurants
+//                        self?.lastFetchedZipCode = self?.zipCodeInput
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    func fetchRestaurants() {
+//         restaurantService.fetchRestaurants(zipCode: zipCodeInput) { [weak self] newRestaurants in
+//             self?.lastFetchedZipCode = self?.zipCodeInput
+//             if let newRestaurants = newRestaurants {
+//                 DispatchQueue.main.async {
+//                     if self?.zipCodeInput == self?.lastFetchedZipCode {
+//                         // Append the new data if the zip code is the same
+//                         self?.restaurants.append(contentsOf: newRestaurants)
+//                     }
+////                         self?.lastFetchedZipCode = self?.zipCodeInput
+////                     } else {
+////                         // Replace the existing data if the zip code is different
+////                         self?.lastFetchedZipCode = self?.zipCodeInput
+////                         self?.replaceNewData(newRestaurants)
+////                     }
+//                     // If you want to replace the existing data, use the following line
+//                     // self?.restaurants = newRestaurants
+//
+//                     // If you want to preserve the existing data and only replace the new part
+////                     self?.replaceNewData(newRestaurants)
+//                 }
+//             }
+//         }
+//     }
+//
+//     private func replaceNewData(_ newRestaurants: [Restaurant]) {
+//         if currentIndex < restaurants.count {
+//             // Replace the part of the array that corresponds to new data
+////             restaurants.replaceSubrange(currentIndex..<restaurants.count, with: newRestaurants)
+//         } else {
+//             // Append the new data if currentIndex is at the end of the array
+//             restaurants.append(contentsOf: newRestaurants)
+//         }
+//     }
+
+
     func fetchPhotos(for restaurant: Restaurant) {
 //        selectedPhoto = photos.randomElement()
 

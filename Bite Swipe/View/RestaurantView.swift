@@ -26,16 +26,16 @@ struct RestaurantView: View {
                     })
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    Button(action: {
-                        restaurantViewModel.fetchRestaurants()
-                    }) {
-                        Text("Submit")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding(10)
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                    }
+//                    Button(action: {
+//                        restaurantViewModel.fetchRestaurants()
+//                    }) {
+//                        Text("Submit")
+//                            .font(.headline)
+//                            .foregroundColor(.white)
+//                            .padding(10)
+//                            .background(Color.blue)
+//                            .cornerRadius(10)
+//                    }
                     
                     RestaurantCard(currentPhotoIndex: $restaurantViewModel.currentPhotoIndex, currentRestaurantID: $currentRestaurantID, restaurant: restaurantViewModel.restaurants[restaurantViewModel.currentIndex])
                         .gesture(

@@ -49,34 +49,36 @@ struct ModalSheet: View {
     @State private var showAllRestaurants = false
 
     var body: some View {
-        Map {
-            ForEach([restaurant], id: \.id) { restaurant in //Help from Josh's code and GPT
-                Annotation(restaurant.name, coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
-                    NavigationLink {
-                        FavView(restaurant: restaurant)
-                    } label: {
-                        Image("BiteSwipeMarker")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                            .shadow(radius: 60)
+        VStack { // Wrap everything in a VStack to add padding around the entire content
+            Button("Close") {
+                dismiss()
+            }
+            .padding() // Add padding around the button
+
+            Map {
+                ForEach([restaurant], id: \.id) { restaurant in
+                    Annotation(restaurant.name, coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
+                        NavigationLink {
+                            FavView(restaurant: restaurant)
+                        } label: {
+                            Image("BiteSwipeMarker")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 60, height: 60, alignment: .top)
+                        }
                     }
                 }
             }
+            .onAppear {
+                mapViewModel.centerCoordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
+            }
+            .mapStyle(.imagery(elevation: .realistic))
+            .mapControls {
+                MapUserLocationButton()
+                MapCompass()
+            }
         }
-        .onAppear {
-            mapViewModel.centerCoordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
-        }
-        .mapStyle(.imagery(elevation: .realistic))
-        .mapControls {
-            MapUserLocationButton()
-            MapCompass()
-        }
-        
-        Button("Close") {
-            dismiss()
-        }
-        .padding()
+        .padding() // Add additional padding around the entire content
     }
 }
 
