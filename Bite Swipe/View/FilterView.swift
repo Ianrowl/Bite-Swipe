@@ -16,41 +16,49 @@ struct FilterView: View {
     
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Search")) {
-                    TextField("Search", text: $searchText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-
-                Section(header: Text("Filter Cuisine")) {
-                    Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
-                        Text("All Cuisines").tag(nil as String?)
-                        ForEach(likedCuisines().sorted(), id: \.self) { cuisine in
-                            Text(cuisine).tag(cuisine as String?)
-                        }
-                    }
-                    .pickerStyle(WheelPickerStyle())
-                    .frame(height: 120)
-                 }
-
-                Section(header: Text("Favorited Restaurants")) {
-                    if restaurantViewModel.likedRestaurants.isEmpty {
-                        Text("No liked restaurants found.")
-                    } else {
-                        ForEach(filteredLikedRestaurants(), id: \.self) { fsq_id in
-                            if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
-                                NavigationLink(destination: FavView(restaurant: restaurant)) {
-                                    Text(restaurant.name)
+            ZStack {
+                Color("BKColor")
+                    .ignoresSafeArea()
+                
+                VStack {
+                    Form {
+                        Section(header: Text("Search")) {
+                            TextField("Search", text: $searchText)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            
+                            Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
+                                Text("All Cuisines").tag(nil as String?)
+                                ForEach(likedCuisines().sorted(), id: \.self) { cuisine in
+                                    Text(cuisine).tag(cuisine as String?)
                                 }
+                            }
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(height: 120)
+                        }
+                        
+                        Section(header: Text("Favorited Restaurants")) {
+                            if restaurantViewModel.likedRestaurants.isEmpty {
+                                Text("No liked restaurants found.")
+                            } else {
+                                ForEach(filteredLikedRestaurants(), id: \.self) { fsq_id in
+                                    if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
+                                        NavigationLink(destination: FavView(restaurant: restaurant)) {
+                                            Text(restaurant.name)
+                                        }
+                                    }
+                                }.listRowBackground(Color("BKColor"))
+
                             }
                         }
                     }
+                    .listStyle(GroupedListStyle())
                 }
             }
-            .listStyle(GroupedListStyle())
             .navigationTitle("Filter")
         }
     }
+
+
 
     private func likedCuisines() -> [String] {
         var cuisines = Set<String>()
