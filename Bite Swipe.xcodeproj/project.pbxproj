@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D7168DAB2B2A95F000125332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7168DAA2B2A95F000125332 /* LaunchScreen.storyboard */; };
 		D720880C2B06C9DC00618739 /* NavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720880B2B06C9DC00618739 /* NavView.swift */; };
 		D720880E2B06C9F300618739 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720880D2B06C9F300618739 /* FilterView.swift */; };
 		D72088132B06CA4A00618739 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72088122B06CA4A00618739 /* FilterViewModel.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D7168DAA2B2A95F000125332 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D720880B2B06C9DC00618739 /* NavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavView.swift; sourceTree = "<group>"; };
 		D720880D2B06C9F300618739 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		D72088122B06CA4A00618739 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
@@ -63,6 +65,8 @@
 		D761A8FD2AEF6DDE00968955 /* Bite SwipeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bite SwipeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D761A9012AEF6DDE00968955 /* Bite_SwipeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bite_SwipeUITests.swift; sourceTree = "<group>"; };
 		D761A9032AEF6DDE00968955 /* Bite_SwipeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bite_SwipeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D77F90C42B2A9DFC001ED0BA /* Bite-SwipeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Bite-SwipeTests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D7A18E412B2A8F6D00BF99A4 /* Bite-Swipe-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Bite-Swipe-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D7D689592B2281720022562E /* FavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +105,7 @@
 				D727EF412AF456E700A21EDF /* RestaurantView.swift */,
 				D720880D2B06C9F300618739 /* FilterView.swift */,
 				D7D689592B2281720022562E /* FavView.swift */,
+				D7168DAA2B2A95F000125332 /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -146,6 +151,7 @@
 		D761A8E42AEF6DDA00968955 /* Bite Swipe */ = {
 			isa = PBXGroup;
 			children = (
+				D7A18E412B2A8F6D00BF99A4 /* Bite-Swipe-Info.plist */,
 				D761A8E52AEF6DDB00968955 /* Bite_SwipeApp.swift */,
 				D727EF3F2AF454E700A21EDF /* View Model */,
 				D727EF3A2AF453C400A21EDF /* RestaurantService.swift */,
@@ -169,6 +175,7 @@
 		D761A8F62AEF6DDE00968955 /* Bite SwipeTests */ = {
 			isa = PBXGroup;
 			children = (
+				D77F90C42B2A9DFC001ED0BA /* Bite-SwipeTests-Info.plist */,
 				D761A8F72AEF6DDE00968955 /* Bite_SwipeTests.swift */,
 			);
 			path = "Bite SwipeTests";
@@ -296,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7168DAB2B2A95F000125332 /* LaunchScreen.storyboard in Resources */,
 				D761A8EE2AEF6DDE00968955 /* Preview Assets.xcassets in Resources */,
 				D761A8EA2AEF6DDE00968955 /* Assets.xcassets in Resources */,
 			);
@@ -487,6 +495,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Bite Swipe/Bite_Swipe.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -495,12 +504,16 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bite-Swipe-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -525,6 +538,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Bite Swipe/Bite_Swipe.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -533,12 +547,16 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bite-Swipe-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -567,6 +585,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D45A4RM4GX;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bite-SwipeTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
@@ -590,6 +609,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D45A4RM4GX;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bite-SwipeTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;

@@ -64,7 +64,16 @@ struct RestaurantView: View {
                     }
                 }
                 .frame(maxHeight: .infinity)
-                .navigationTitle("Restaurants") // Set the title for the navigation bar
+                .navigationTitle("Discover") // Set the title for the navigation bar
+//                .navigationBarTitleDisplayMode(.inline)
+//                .toolbar {
+//                    ToolbarItem(placement: .principal) {
+//                        Text("Discover")
+//                            .font(.largeTitle.bold())
+//                            .accessibilityAddTraits(.isHeader)
+//                    }
+//                }
+
                 .onAppear {
                     restaurantViewModel.fetchRestaurants()
                 }
