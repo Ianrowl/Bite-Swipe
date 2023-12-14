@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Kingfisher
+import MapKit
 
 struct FavView: View {
     @Environment(\.dismiss) var dismiss
@@ -61,3 +62,45 @@ struct FavView: View {
         }
     }
 }
+
+struct ModalSheet: View {
+    @EnvironmentObject var mapViewModel: MapViewModel
+    var restaurant: Restaurant
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var showAllRestaurants = false
+
+    var body: some View {
+        VStack { // Wrap everything in a VStack to add padding around the entire content
+            Button("Close") {
+                dismiss()
+            }
+            .padding() // Add padding around the button
+
+            Map {
+                ForEach([restaurant], id: \.id) { restaurant in
+                    Annotation(restaurant.name, coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
+                        NavigationLink {
+                            FavView(restaurant: restaurant)
+                        } label: {
+                            Image("BiteSwipeMarker")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 60, height: 60, alignment: .top)
+                        }
+                    }
+                }
+            }
+            .onAppear {
+                mapViewModel.centerCoordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
+            }
+            .mapStyle(.imagery(elevation: .realistic))
+            .mapControls {
+                MapUserLocationButton()
+                MapCompass()
+            }
+        }
+        .padding() // Add additional padding around the entire content
+    }
+}
+

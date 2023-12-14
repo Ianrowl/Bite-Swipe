@@ -24,7 +24,7 @@ struct YourApp: App {
         WindowGroup {
 //            RestaurantView(viewModel: RestaurantViewModel())
 //            RestaurantView()
-            NavView()
+            ContentView()
         }
     }
 }
