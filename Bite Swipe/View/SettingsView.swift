@@ -26,7 +26,42 @@ struct SettingsView: View {
                 TextField("Enter Zip Code", text: $restaurantViewModel.zipCodeInput, onCommit: {
                     restaurantViewModel.fetchRestaurants()
                 })
+                //                    Button(action: {
+                //                        restaurantViewModel.fetchRestaurants()
+                //                    }) {
+                //                        Text("Submit")
+                //                            .font(.headline)
+                //                            .foregroundColor(.white)
+                //                            .padding(10)
+                //                            .background(Color.blue)
+                //                            .cornerRadius(10)
+                //                    }
+
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                Text("Swipe Right to _Favorite_ an app")
+                    .foregroundColor(Color("Accent2"))
+                    .font(.title3)
+                    .multilineTextAlignment(.center)
+                    .padding(5)
+                    .padding(.horizontal, 20)
+                Text("Swipe Left to _Trash_ an app")
+                    .foregroundColor(Color("Accent2"))
+                    .font(.title3)
+                    .multilineTextAlignment(.center)
+                    .padding(5)
+                    .padding(.horizontal, 20)
+                Text("Filter through favorites on the **Favorites** tab")
+                    .foregroundColor(Color("Accent2"))
+                    .font(.title3)
+                    .multilineTextAlignment(.center)
+                    .padding(5)
+                    .padding(.horizontal, 20)
+                Text("And change your zip code, re-read the tutorial, and start from scratch in settings")
+                    .foregroundColor(Color("Accent2"))
+                    .font(.title3)
+                    .multilineTextAlignment(.center)
+                    .padding(5)
+                    .padding(.horizontal, 20)
             }
         }
         

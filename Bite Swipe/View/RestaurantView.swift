@@ -21,42 +21,36 @@ struct RestaurantView: View {
                     .ignoresSafeArea()
                 
                 VStack {
+                    Spacer()
+
                     if restaurantViewModel.restaurants.isEmpty {
                         ProgressView("Loading restaurants...")
                     } else {
-                        
-                        //                    Button(action: {
-                        //                        restaurantViewModel.fetchRestaurants()
-                        //                    }) {
-                        //                        Text("Submit")
-                        //                            .font(.headline)
-                        //                            .foregroundColor(.white)
-                        //                            .padding(10)
-                        //                            .background(Color.blue)
-                        //                            .cornerRadius(10)
-                        //                    }
-                        
-                        RestaurantCard(currentPhotoIndex: $restaurantViewModel.currentPhotoIndex, currentRestaurantID: $currentRestaurantID, restaurant: restaurantViewModel.restaurants[restaurantViewModel.currentIndex])
-                            .gesture(
-                                DragGesture()
-                                    .onEnded { gesture in
-                                        withAnimation {
-                                            if gesture.translation.width < -70 {
-                                                restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
-                                                
-                                                restaurantViewModel.dislikeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex].fsq_id)
-                                                
-                                                
-                                            } else if gesture.translation.width > 70 {
-                                                restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
-                                                restaurantViewModel.likeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex-1].fsq_id)
-                                                
+                        withAnimation {
+                            
+                            RestaurantCard(currentPhotoIndex: $restaurantViewModel.currentPhotoIndex, currentRestaurantID: $currentRestaurantID, restaurant: restaurantViewModel.restaurants[restaurantViewModel.currentIndex])
+                                .gesture(
+                                    DragGesture()
+                                        .onEnded { gesture in
+                                            withAnimation{
+                                                if gesture.translation.width < -70 {
+                                                    restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
+                                                    
+                                                    restaurantViewModel.dislikeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex].fsq_id)
+                                                    
+                                                    
+                                                } else if gesture.translation.width > 70 {
+                                                    restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
+                                                    restaurantViewModel.likeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex-1].fsq_id)
+                                                    
+                                                }
                                             }
+                                            currentRestaurantID = restaurantViewModel.restaurants[restaurantViewModel.currentIndex].fsq_id
                                         }
-                                        currentRestaurantID = restaurantViewModel.restaurants[restaurantViewModel.currentIndex].fsq_id
-                                    }
-                            )
-                            .padding(15)
+                                )
+                                .padding(15)
+                            
+                        }
                     }
                 }
                 .frame(maxHeight: .infinity)
@@ -68,8 +62,8 @@ struct RestaurantView: View {
                               Text("Discover")
                                   .font(.largeTitle.bold())
                                   .foregroundColor(Color("Accent2"))
-                                  .padding(.top, 27) // Add some bottom padding for spacing
-                                  .padding(.bottom, 10) // Add some bottom padding for spacing
+                                  .padding(.top, 27)
+                                  .padding(.bottom, 10)
                               Spacer()
                           }
                       }
@@ -84,18 +78,7 @@ struct RestaurantView: View {
                               .font(.title)
                       }
                   )
-//                .navigationTitle("Discover")
-//                .navigationBarItems(
-//                    leading: NavigationLink(destination: MapView()) {
-//                        Image(systemName: "map")
-//                            .font(.title)
-//                    },
-//                    trailing: NavigationLink(destination: SettingsView()) {
-//                        Image(systemName: "gear")
-//                            .font(.title)
-//                    }
-//                )
-                .padding(.top, 15) // Add top padding to move content down
+                .padding(.top, 15)
 
                 .onAppear {
                     restaurantViewModel.fetchRestaurants()
@@ -114,6 +97,8 @@ struct RestaurantCard: View {
     
     @Binding var currentPhotoIndex: Int
     @Binding var currentRestaurantID: String?
+    
+    @State private var cardOffset: CGSize = .zero
     
     var restaurant: Restaurant
     
@@ -142,7 +127,6 @@ struct RestaurantCard: View {
                 }
             }
 
-            
             Text("Cuisine: \(restaurant.cuisine)")
                 .padding(5)
             
@@ -164,10 +148,37 @@ struct RestaurantCard: View {
         }
 
         .frame(maxWidth: .infinity)
-        .background(Color("Accent1"))
-        .cornerRadius(10)
-    }
-}
+         .background(Color("Accent1"))
+         .cornerRadius(10)
+         .offset(cardOffset)
+         .rotationEffect(.degrees(Double(cardOffset.width / 15)))
+         .gesture(
+             DragGesture()
+                 .onChanged { value in
+                     cardOffset.width = value.translation.width
+                 }
+                 .onEnded { value in
+                     withAnimation (.easeInOut){
+                         if value.translation.width < -70 {
+                             cardOffset.width = -500 // Swipe left
+                             restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
+                             restaurantViewModel.dislikeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex].fsq_id)
+                         } else if value.translation.width > 70 {
+                             cardOffset.width = 500 // Swipe right
+                             restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
+                             restaurantViewModel.likeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex - 1].fsq_id)
+                         } else {
+                             cardOffset = .zero
+                         }
+                     }
+                     
+                     withAnimation {
+                         cardOffset = .zero
+                     }
+                 }
+         )
+     }
+ }
 
 struct PlaceholderView: View {
     var body: some View {
