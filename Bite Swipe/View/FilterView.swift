@@ -25,6 +25,11 @@ struct FilterView: View {
                         Section(header: Text("Search")) {
                             TextField("Search", text: $searchText)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .background(Color("Accent1"))
+                                .cornerRadius(1)
+                            //                                .accentColor(Color.red) // Replace with your desired color
+                            //                                .foregroundColor(Color.red)
+                            
                             
                             Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
                                 Text("All Cuisines").tag(nil as String?)
@@ -34,11 +39,13 @@ struct FilterView: View {
                             }
                             .pickerStyle(WheelPickerStyle())
                             .frame(height: 120)
-                        }
+                        }.listRowBackground(Color("Accent1"))
+                        
                         
                         Section(header: Text("Favorited Restaurants")) {
                             if restaurantViewModel.likedRestaurants.isEmpty {
                                 Text("No liked restaurants found.")
+                                    .listRowBackground(Color("Accent1"))
                             } else {
                                 ForEach(filteredLikedRestaurants(), id: \.self) { fsq_id in
                                     if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
@@ -46,12 +53,14 @@ struct FilterView: View {
                                             Text(restaurant.name)
                                         }
                                     }
-                                }.listRowBackground(Color("BKColor"))
-
+                                }.listRowBackground(Color("Accent1"))
                             }
                         }
                     }
+                    .scrollContentBackground(.hidden)
                     .listStyle(GroupedListStyle())
+                    .background(Color("BKColor"))
+                    
                 }
             }
             .navigationTitle("Filter")

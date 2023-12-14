@@ -78,7 +78,7 @@ struct RestaurantView: View {
 
 struct RestaurantCard: View {
     
-    let moonGray = Color(white: 0.9, opacity: 0.7) // Found this color
+//    let moonGray = Color(white: 0.9, opacity: 0.7) // Found this color
     @EnvironmentObject var restaurantViewModel: RestaurantViewModel
     
     @Binding var currentPhotoIndex: Int
@@ -133,7 +133,7 @@ struct RestaurantCard: View {
         }
 
         .frame(maxWidth: .infinity)
-        .background(moonGray)
+        .background(Color("Accent1"))
         .cornerRadius(10)
     }
 }
