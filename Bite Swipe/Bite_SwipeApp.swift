@@ -22,9 +22,8 @@ import SwiftUI
 struct YourApp: App {
     var body: some Scene {
         WindowGroup {
-//            RestaurantView(viewModel: RestaurantViewModel())
-//            RestaurantView()
             ContentView()
+                .accentColor(Color("Accent2"))
         }
     }
 }

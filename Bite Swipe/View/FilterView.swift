@@ -22,6 +22,7 @@ struct FilterView: View {
                     .ignoresSafeArea()
                 
                 VStack {
+                    Spacer()
                     Form {
                         Section(header: Text("Search")) {
                             TextField("Search", text: $searchText)
@@ -59,18 +60,46 @@ struct FilterView: View {
                     .scrollContentBackground(.hidden)
                     .listStyle(GroupedListStyle())
                     .background(Color("BKColor"))
-                    
+                    Spacer() // Add spacer at the bottom
+
                 }
             }
-            .navigationTitle("Favorites")
-//            .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
-//                ToolbarItem(placement: .principal) {
-//                    Text("Favorites")
-//                        .font(.largeTitle.bold())
-//                        .accessibilityAddTraits(.isHeader)
+            .navigationBarTitleDisplayMode(.inline)
+              .toolbar {
+                  ToolbarItem(placement: .principal) {
+                      VStack {
+                          Spacer()
+                          Text("Favorites")
+                              .font(.largeTitle.bold())
+                              .foregroundColor(Color(Color("Accent2")))
+                              .padding(.top, 27) // Add some bottom padding for spacing
+                              .padding(.bottom, 10) // Add some bottom padding for spacing
+                          Spacer()
+                      }
+                  }
+              }
+              .navigationBarItems(
+                  leading: NavigationLink(destination: MapView()) {
+                      Image(systemName: "map")
+                          .font(.title)
+                  },
+                  trailing: NavigationLink(destination: SettingsView()) {
+                      Image(systemName: "gear")
+                          .font(.title)
+                  }
+              )
+//            .navigationTitle("Favorites")
+//            .navigationBarItems(
+//                leading: NavigationLink(destination: MapView()) {
+//                    Image(systemName: "map")
+//                        .font(.title)
+//                },
+//                trailing: NavigationLink(destination: SettingsView()) {
+//                    Image(systemName: "gear")
+//                        .font(.title)
 //                }
-//            }
+//            )
+
         }
     }
     

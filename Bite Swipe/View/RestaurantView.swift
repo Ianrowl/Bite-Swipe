@@ -24,10 +24,6 @@ struct RestaurantView: View {
                     if restaurantViewModel.restaurants.isEmpty {
                         ProgressView("Loading restaurants...")
                     } else {
-                        TextField("Enter Zip Code", text: $restaurantViewModel.zipCodeInput, onCommit: {
-                            restaurantViewModel.fetchRestaurants()
-                        })
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         
                         //                    Button(action: {
                         //                        restaurantViewModel.fetchRestaurants()
@@ -64,15 +60,42 @@ struct RestaurantView: View {
                     }
                 }
                 .frame(maxHeight: .infinity)
-                .navigationTitle("Discover") // Set the title for the navigation bar
-//                .navigationBarTitleDisplayMode(.inline)
-//                .toolbar {
-//                    ToolbarItem(placement: .principal) {
-//                        Text("Discover")
-//                            .font(.largeTitle.bold())
-//                            .accessibilityAddTraits(.isHeader)
+                .navigationBarTitleDisplayMode(.inline)
+                  .toolbar {
+                      ToolbarItem(placement: .principal) {
+                          VStack {
+                              Spacer()
+                              Text("Discover")
+                                  .font(.largeTitle.bold())
+                                  .foregroundColor(Color("Accent2"))
+                                  .padding(.top, 27) // Add some bottom padding for spacing
+                                  .padding(.bottom, 10) // Add some bottom padding for spacing
+                              Spacer()
+                          }
+                      }
+                  }
+                  .navigationBarItems(
+                      leading: NavigationLink(destination: MapView()) {
+                          Image(systemName: "map")
+                              .font(.title)
+                      },
+                      trailing: NavigationLink(destination: SettingsView()) {
+                          Image(systemName: "gear")
+                              .font(.title)
+                      }
+                  )
+//                .navigationTitle("Discover")
+//                .navigationBarItems(
+//                    leading: NavigationLink(destination: MapView()) {
+//                        Image(systemName: "map")
+//                            .font(.title)
+//                    },
+//                    trailing: NavigationLink(destination: SettingsView()) {
+//                        Image(systemName: "gear")
+//                            .font(.title)
 //                    }
-//                }
+//                )
+                .padding(.top, 15) // Add top padding to move content down
 
                 .onAppear {
                     restaurantViewModel.fetchRestaurants()
@@ -87,7 +110,6 @@ struct RestaurantView: View {
 
 struct RestaurantCard: View {
     
-//    let moonGray = Color(white: 0.9, opacity: 0.7) // Found this color
     @EnvironmentObject var restaurantViewModel: RestaurantViewModel
     
     @Binding var currentPhotoIndex: Int
