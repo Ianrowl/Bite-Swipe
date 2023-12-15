@@ -78,7 +78,8 @@ struct WelcomeScreen: View {
                             .cornerRadius(10)
                             .shadow(color: Color("Accent2").opacity(0.4), radius: 6, x: 0, y: 5)
                     }
-                    .padding(.top, 25)                }
+                    .padding(.top, 25)
+                }
                 .background(Color("BKColor"))
             }
         }

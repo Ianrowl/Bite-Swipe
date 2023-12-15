@@ -35,6 +35,7 @@ struct RestaurantView: View {
                                             withAnimation{
                                                 if gesture.translation.width < -70 {
                                                     restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
+                                                    restaurantViewModel.incrementIndex()
                                                     
                                                     restaurantViewModel.dislikeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex].fsq_id)
                                                     
@@ -42,6 +43,7 @@ struct RestaurantView: View {
                                                 } else if gesture.translation.width > 70 {
                                                     restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
                                                     restaurantViewModel.likeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex-1].fsq_id)
+                                                    restaurantViewModel.incrementIndex()
                                                     
                                                 }
                                             }
@@ -69,20 +71,23 @@ struct RestaurantView: View {
                       }
                   }
                   .navigationBarItems(
-                      leading: NavigationLink(destination: MapView()) {
-                          Image(systemName: "map")
-                              .font(.title)
-                      },
+    //                  leading: NavigationLink(destination: MapView()) {
+    //                      Image(systemName: "map")
+    //                          .font(.title)
+    //                  },
                       trailing: NavigationLink(destination: SettingsView()) {
                           Image(systemName: "gear")
                               .font(.title)
                       }
-                  )
-                .padding(.top, 15)
+                  )                .padding(.top, 15)
 
                 .onAppear {
-                    restaurantViewModel.fetchRestaurants()
-                }
+                    restaurantViewModel.fetchRestaurants { success in
+                        if !success {
+                            // Handle the case when the API call is not successful
+                            print("Error fetching restaurants. Please try again.")
+                        }
+                    }                }
             }
             
         }

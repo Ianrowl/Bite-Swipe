@@ -64,6 +64,7 @@ struct FavView: View {
                     restaurantViewModel.fetchPhotos(for: restaurant)
                 }
             }
+            .background(Color("BKColor"))
         }
     }
 }
@@ -76,36 +77,41 @@ struct ModalSheet: View {
     @State private var showAllRestaurants = false
 
     var body: some View {
-        VStack { // Wrap everything in a VStack to add padding around the entire content
-            Button("Close") {
-                dismiss()
-            }
-            .padding() // Add padding around the button
-
-            Map {
-                ForEach([restaurant], id: \.id) { restaurant in
-                    Annotation(restaurant.name, coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
-                        NavigationLink {
-                            FavView(restaurant: restaurant)
-                        } label: {
-                            Image("BiteSwipeMarker")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 60, height: 60, alignment: .top)
+        ZStack{
+            Color("BKColor")
+                .ignoresSafeArea()
+            VStack {
+                Button("Close") {
+                    dismiss()
+                }
+                .padding()
+                
+                Map {
+                    ForEach([restaurant], id: \.id) { restaurant in
+                        Annotation(restaurant.name, coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
+                            NavigationLink {
+                                FavView(restaurant: restaurant)
+                            } label: {
+                                Image("BiteSwipeMarker")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 60, height: 60, alignment: .top)
+                            }
                         }
                     }
                 }
+                .onAppear {
+                    mapViewModel.centerCoordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
+                }
+                .mapStyle(.imagery(elevation: .realistic))
+                .mapControls {
+                    MapUserLocationButton()
+                    MapCompass()
+                }
             }
-            .onAppear {
-                mapViewModel.centerCoordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
-            }
-            .mapStyle(.imagery(elevation: .realistic))
-            .mapControls {
-                MapUserLocationButton()
-                MapCompass()
-            }
+            .padding()
+            .background(Color("BKColor"))
         }
-        .padding() // Add additional padding around the entire content
     }
 }
 

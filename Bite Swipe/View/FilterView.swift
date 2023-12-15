@@ -28,8 +28,8 @@ struct FilterView: View {
                             TextField("Search", text: $searchText)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
 //                                .background(Color("Accent1"))
-                                .accentColor(Color("Accent1")) // Replace with your desired color
-//                                .foregroundColor(Color("Accen1"))
+                                .accentColor(Color("Accent2"))
+                                .foregroundColor(Color("Accent2"))
                             
                             
                             Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
@@ -79,27 +79,15 @@ struct FilterView: View {
                   }
               }
               .navigationBarItems(
-                  leading: NavigationLink(destination: MapView()) {
-                      Image(systemName: "map")
-                          .font(.title)
-                  },
+//                  leading: NavigationLink(destination: MapView()) {
+//                      Image(systemName: "map")
+//                          .font(.title)
+//                  },
                   trailing: NavigationLink(destination: SettingsView()) {
                       Image(systemName: "gear")
                           .font(.title)
                   }
               )
-//            .navigationTitle("Favorites")
-//            .navigationBarItems(
-//                leading: NavigationLink(destination: MapView()) {
-//                    Image(systemName: "map")
-//                        .font(.title)
-//                },
-//                trailing: NavigationLink(destination: SettingsView()) {
-//                    Image(systemName: "gear")
-//                        .font(.title)
-//                }
-//            )
-
         }
     }
     

@@ -10,7 +10,6 @@ import Foundation
 class RestaurantService {
     private let apiURL = "https://api.foursquare.com/v3/places/search?categories=13000"
     private let apiKey = "fsq3kl7NeyCzFZSmIzk4VZaT3iww2HUeylc4XB3NA/crDPA="
-//    private let photoApiURL = "https://api.foursquare.com/v3/places/4be5b5fcbcef2d7fc53004e5/photos" // Add the photo API URL
     private let photoApiURL = "https://api.foursquare.com/v3/places/" // Add the photo API URL
 
     func fetchRestaurants(zipCode: String, completion: @escaping ([Restaurant]?) -> Void) {
