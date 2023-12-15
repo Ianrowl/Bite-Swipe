@@ -14,6 +14,10 @@ struct RestaurantView: View {
     @EnvironmentObject var filterViewModel: FilterViewModel
     @State private var currentRestaurantID: String?
     
+    @State private var loadingTimeout = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
     var body: some View {
         NavigationView {
             ZStack{
@@ -22,9 +26,18 @@ struct RestaurantView: View {
                 
                 VStack {
                     Spacer()
-
                     if restaurantViewModel.restaurants.isEmpty {
-                        ProgressView("Loading restaurants...")
+                        if !loadingTimeout {
+                            ProgressView("Loading restaurants...")
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                                        if restaurantViewModel.restaurants.isEmpty {
+                                            alertMessage = "Loading took too long. Please try a different zip code."
+                                            showAlert = true
+                                        }
+                                    }
+                                }
+                        }
                     } else {
                         withAnimation {
                             
@@ -54,6 +67,15 @@ struct RestaurantView: View {
                             
                         }
                     }
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Error"),
+                        message: Text(alertMessage),
+                        dismissButton: .default(Text("OK")) {
+                            showAlert = false
+                        }
+                    )
                 }
                 .frame(maxHeight: .infinity)
                 .navigationBarTitleDisplayMode(.inline)
@@ -87,7 +109,8 @@ struct RestaurantView: View {
                             // Handle the case when the API call is not successful
                             print("Error fetching restaurants. Please try again.")
                         }
-                    }                }
+                    }               
+                }
             }
             
         }
