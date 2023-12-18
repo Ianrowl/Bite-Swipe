@@ -52,6 +52,7 @@ struct FilterView: View {
                                 Text("No liked restaurants found.")
                                     .listRowBackground(Color("Accent1"))
                                     .font(Font.custom("EBGaramond-Medium", size: 21, relativeTo: .subheadline))
+                                    .foregroundColor(Color("Accent2"))
                             } else {
                                 ForEach(filteredLikedRestaurants(), id: \.self) { fsq_id in
                                     if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
@@ -63,6 +64,8 @@ struct FilterView: View {
                                 }.listRowBackground(Color("Accent1"))
                             }
                         }.font(Font.custom("PlayfairDisplay-Medium", size: 15, relativeTo: .headline))
+                            .foregroundColor(Color("Accent2"))
+
                     }
                     .scrollContentBackground(.hidden)
                     .listStyle(GroupedListStyle())

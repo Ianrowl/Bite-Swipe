@@ -115,8 +115,8 @@ struct RestaurantView: View {
                 }
                 .alert(isPresented: $restaurantViewModel.showAlert) {
                     Alert(
-                        title: Text(restaurantViewModel.alertMessage), // Use the restaurant name as the title
-                        message: Text(""), // Empty string for the message
+                        title: Text(restaurantViewModel.alertMessage),
+                        message: Text(""),
                         dismissButton: .default(Text("OK")) {
                             restaurantViewModel.showAlert = false
                         }
@@ -139,35 +139,37 @@ struct RestaurantCard: View {
     @Binding var currentPhotoIndex: Int
     @Binding var currentRestaurantID: String?
     
+    @State private var starAnimationVisible = false
+    @State private var trashCanAnimationVisible = false
+    
+    @State private var isAnimationInProgress = false
+
     @State private var cardOffset: CGSize = .zero
     
     var restaurant: Restaurant
     
     var body: some View {
-        VStack {
-//            Text(restaurant.name)
-//                .font(Font.custom("EBGaramond-Bold", size: 40, relativeTo: .title))
-//                .multilineTextAlignment(.center)
-//                .padding(20)
-//                .padding(.top, 20)
-            Text(restaurant.name)
-                .font(Font.custom("EBGaramond-Bold", size: 40, relativeTo: .title))
-                .multilineTextAlignment(.center)
-                .padding(.top, 20)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 5)
-                .frame(width: 300, height: 160)
-                .onTapGesture {
-                    // Show pop-up with restaurant name when tapped
-                    showAlert(message: restaurant.name)
-                }
-            
-            if restaurantViewModel.photos.isEmpty {
-                PlaceholderView()
-                    .frame(width: 200, height: 250)
-                    .cornerRadius(10)
-
-            } else {
+        ZStack{
+            VStack {
+                Text(restaurant.name)
+                    .font(Font.custom("EBGaramond-Bold", size: 40, relativeTo: .title))
+                    .foregroundColor(Color("Accent2"))
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 20)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 5)
+                    .frame(width: 300, height: 160)
+                    .onTapGesture {
+                        // Show pop-up with restaurant name when tapped
+                        showAlert(message: restaurant.name)
+                    }
+                
+                if restaurantViewModel.photos.isEmpty {
+                    PlaceholderView()
+                        .frame(width: 200, height: 250)
+                        .cornerRadius(10)
+                    
+                } else {
                     let photoIndex = restaurantViewModel.currentPhotoIndex % restaurantViewModel.photos.count
                     KFImage.url(restaurantViewModel.createPhotoURL(photo: restaurantViewModel.photos[photoIndex]))
                         .resizable()
@@ -179,20 +181,25 @@ struct RestaurantCard: View {
                             // Increment the currentPhotoIndex when tapped to go to the next photo
                             restaurantViewModel.currentPhotoIndex = (restaurantViewModel.currentPhotoIndex + 1) % restaurantViewModel.photos.count
                         }
+                }
+                
+                Text("**Cuisine:** \(restaurant.cuisine)")
+                    .font(Font.custom("EBGaramond-Regular", size: 22, relativeTo: .subheadline))
+                    .foregroundColor(Color("Accent2"))
+                    .padding(5)
+                    .padding(.top, 5)
+                
+                Text("**Location:** \(restaurant.location)")
+                    .font(Font.custom("EBGaramond-Regular", size: 22, relativeTo: .subheadline))
+                    .foregroundColor(Color("Accent2"))
+                    .multilineTextAlignment(.center)
+                
+                    .padding(10)
+                
+                Spacer()
+                
             }
             
-            Text("**Cuisine:** \(restaurant.cuisine)")
-                .font(Font.custom("EBGaramond-Regular", size: 22, relativeTo: .subheadline))
-                .padding(5)
-                .padding(.top, 5)
-            
-            Text("**Location:** \(restaurant.location)")
-                .font(Font.custom("EBGaramond-Regular", size: 22, relativeTo: .subheadline))
-                .multilineTextAlignment(.center)
-
-                .padding(10)
-            
-            Spacer()
         }
         .onAppear {
             restaurantViewModel.fetchPhotos(for: restaurant)
@@ -218,12 +225,16 @@ struct RestaurantCard: View {
                      withAnimation (.easeInOut){
                          if value.translation.width < -70 {
                              cardOffset.width = -500 // Swipe left
+
                              restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
                              restaurantViewModel.dislikeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex].fsq_id)
+                             
                          } else if value.translation.width > 70 {
                              cardOffset.width = 500 // Swipe right
+                             
                              restaurantViewModel.currentIndex = (restaurantViewModel.currentIndex + 1) % restaurantViewModel.restaurants.count
                              restaurantViewModel.likeRestaurant(restaurantViewModel.restaurants[restaurantViewModel.currentIndex - 1].fsq_id)
+                             
                          } else {
                              cardOffset = .zero
                          }
@@ -235,12 +246,13 @@ struct RestaurantCard: View {
                  }
          )
      }
+    
     private func showAlert(message: String) {
-        // Show a pop-up with the restaurant name
         restaurantViewModel.alertMessage = message
         restaurantViewModel.showAlert = true
     }
- }
+    
+}
 
 struct PlaceholderView: View {
     var body: some View {

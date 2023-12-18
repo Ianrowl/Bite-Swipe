@@ -29,6 +29,7 @@ struct SettingsView: View {
             VStack{
                 Text("Settings")
                     .font(Font.custom("PlayfairDisplay-Bold", size: 38, relativeTo: .title))
+                    .foregroundColor(Color("Accent2"))
                 Spacer()
 
                 HStack {
@@ -85,7 +86,7 @@ struct SettingsView: View {
                             .shadow(color: Color("Accent2").opacity(0.3), radius: 3, x: 0, y: 3)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color("Accent2"), lineWidth: 0.5) // Set the border color and width
+                                    .stroke(Color("Accent2"), lineWidth: 0.5)
                             )
                     }
 

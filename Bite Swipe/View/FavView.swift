@@ -26,6 +26,7 @@ struct FavView: View {
             VStack {
                 Text(restaurant.name)
                     .font(Font.custom("EBGaramond-Bold", size: 45, relativeTo: .title))
+                    .foregroundColor(Color("Accent2"))
                     .multilineTextAlignment(.center)
                     .padding(20)
                 
@@ -43,6 +44,7 @@ struct FavView: View {
                 
                 Text("**Cuisine:** \(restaurant.cuisine)")
                     .font(Font.custom("EBGaramond-Regular", size: 24, relativeTo: .subheadline))
+                    .foregroundColor(Color("Accent2"))
                     .padding(10)
                 
                 Button(action: {

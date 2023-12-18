@@ -82,7 +82,6 @@ struct WelcomeScreen: View {
                     navigateToHomeScreen = true
                 }) {
                     VStack{
-                        // Image("Image")
                         Text("**Tap to Continue**")
                             .foregroundColor(Color("Accent2"))
                             .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .body))
