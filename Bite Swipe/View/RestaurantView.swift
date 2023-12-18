@@ -110,8 +110,20 @@ struct RestaurantView: View {
                             // Handle the case when the API call is not successful
                             print("Error fetching restaurants. Please try again.")
                         }
-                    }               
+                    }   
+                    
                 }
+                .alert(isPresented: $restaurantViewModel.showAlert) {
+                    Alert(
+                        title: Text(restaurantViewModel.alertMessage), // Use the restaurant name as the title
+                        message: Text(""), // Empty string for the message
+                        dismissButton: .default(Text("OK")) {
+                            restaurantViewModel.showAlert = false
+                        }
+                    )
+                }
+
+
             }
             
         }
@@ -133,40 +145,52 @@ struct RestaurantCard: View {
     
     var body: some View {
         VStack {
+//            Text(restaurant.name)
+//                .font(Font.custom("EBGaramond-Bold", size: 40, relativeTo: .title))
+//                .multilineTextAlignment(.center)
+//                .padding(20)
+//                .padding(.top, 20)
             Text(restaurant.name)
                 .font(Font.custom("EBGaramond-Bold", size: 40, relativeTo: .title))
                 .multilineTextAlignment(.center)
-                .padding(20)
                 .padding(.top, 20)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 5)
+                .frame(width: 300, height: 160)
+                .onTapGesture {
+                    // Show pop-up with restaurant name when tapped
+                    showAlert(message: restaurant.name)
+                }
+            
             if restaurantViewModel.photos.isEmpty {
                 PlaceholderView()
                     .frame(width: 200, height: 250)
                     .cornerRadius(10)
 
             } else {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(restaurantViewModel.photos, id: \.id) { photo in
-                            KFImage.url(restaurantViewModel.createPhotoURL(photo: photo))
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 200, height: 250)
-                                .cornerRadius(10)
-//                                .padding(10)
+                    let photoIndex = restaurantViewModel.currentPhotoIndex % restaurantViewModel.photos.count
+                    KFImage.url(restaurantViewModel.createPhotoURL(photo: restaurantViewModel.photos[photoIndex]))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 275)
+                        .padding(.horizontal, 25)
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            // Increment the currentPhotoIndex when tapped to go to the next photo
+                            restaurantViewModel.currentPhotoIndex = (restaurantViewModel.currentPhotoIndex + 1) % restaurantViewModel.photos.count
                         }
-                    }
-                }
             }
-
+            
             Text("**Cuisine:** \(restaurant.cuisine)")
                 .font(Font.custom("EBGaramond-Regular", size: 22, relativeTo: .subheadline))
                 .padding(5)
+                .padding(.top, 5)
             
             Text("**Location:** \(restaurant.location)")
                 .font(Font.custom("EBGaramond-Regular", size: 22, relativeTo: .subheadline))
                 .multilineTextAlignment(.center)
 
-                .padding(15)
+                .padding(10)
             
             Spacer()
         }
@@ -211,6 +235,11 @@ struct RestaurantCard: View {
                  }
          )
      }
+    private func showAlert(message: String) {
+        // Show a pop-up with the restaurant name
+        restaurantViewModel.alertMessage = message
+        restaurantViewModel.showAlert = true
+    }
  }
 
 struct PlaceholderView: View {

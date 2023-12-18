@@ -126,7 +126,7 @@ struct SettingsView: View {
                     isResetConfirmationPresented.toggle()
                 }) {
                     Text("Reset App")
-                        .font(Font.custom("EBGaramond-Bold", size: 35, relativeTo: .title))
+                        .font(Font.custom("EBGaramond-Bold", size: 42, relativeTo: .title))
                         .foregroundColor(Color("Accent1"))
                         .padding(60)
                         .padding(.horizontal, 40)
@@ -165,11 +165,22 @@ struct SettingsView: View {
 }
 
 struct TutorialView: View {
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         ZStack{
             Color("BKColor")
                 .ignoresSafeArea()
             VStack {
+                Button(action: {
+                    dismiss()
+                }) {
+                    Text("Close")
+                        .font(Font.custom("EBGaramond-Bold", size: 20, relativeTo: .subheadline))
+                        .foregroundColor(Color("Accent3"))
+                }.padding(10)
+                Spacer()
+                
                 Text("Swipe right to **Favorite** a restaurant")
                     .foregroundColor(Color("Accent2"))
                     .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
@@ -182,12 +193,20 @@ struct TutorialView: View {
                     .multilineTextAlignment(.center)
                     .padding(5)
                     .padding(.horizontal, 20)
+                Text("For long restaurant names, click on them to view the whole name")
+                    .foregroundColor(Color("Accent2"))
+                    .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
+                    .multilineTextAlignment(.center)
+                    .padding(5)
+                    .padding(.horizontal, 20)
                 Text("Filter through favorites on the **Favorites** tab")
                     .foregroundColor(Color("Accent2"))
                     .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
                     .multilineTextAlignment(.center)
                     .padding(5)
                     .padding(.horizontal, 20)
+                Spacer()
+
             }
         }
     }

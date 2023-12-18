@@ -18,6 +18,9 @@ class RestaurantViewModel: ObservableObject {
     @Published var currentRestaurant: Restaurant?
     @Published var photos: [Photo] = []
     
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String = ""
+    
     var lastFetchedZipCode: String?
     private let currentIndexKey = "currentIndex"
     
