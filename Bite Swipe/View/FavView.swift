@@ -35,11 +35,11 @@ struct FavView: View {
                             KFImage.url(restaurantViewModel.createPhotoURL(photo: photo))
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 200, height: 250)
+                                .frame(width: 200, height: 275)
                                 .cornerRadius(10)
                         }
                     }
-                }
+                }.padding(.horizontal, 15)
                 
                 Text("**Cuisine:** \(restaurant.cuisine)")
                     .font(Font.custom("EBGaramond-Regular", size: 24, relativeTo: .subheadline))
