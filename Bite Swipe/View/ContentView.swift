@@ -27,7 +27,7 @@ struct ContentView: View {
         } else {
             WelcomeScreen()
         }
-    }
+    }   
 }
 
 struct WelcomeScreen: View {
@@ -39,27 +39,27 @@ struct WelcomeScreen: View {
             Color("BKColor").edgesIgnoringSafeArea(.all)
 
             VStack {
-                Text("Swipe Right to _Favorite_ an app")
+                Text("Swipe right to **Favorite** a restaurant")
                     .foregroundColor(Color("Accent2"))
-                    .font(.title3)
+                    .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
                     .multilineTextAlignment(.center)
                     .padding(5)
                     .padding(.horizontal, 20)
-                Text("Swipe Left to _Trash_ an app")
+                Text("Swipe left to **Trash** a restaurant")
                     .foregroundColor(Color("Accent2"))
-                    .font(.title3)
+                    .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
                     .multilineTextAlignment(.center)
                     .padding(5)
                     .padding(.horizontal, 20)
                 Text("Filter through favorites on the **Favorites** tab")
                     .foregroundColor(Color("Accent2"))
-                    .font(.title3)
+                    .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
                     .multilineTextAlignment(.center)
                     .padding(5)
                     .padding(.horizontal, 20)
                 Text("And change your zip code, re-read the tutorial, and start from scratch in settings")
                     .foregroundColor(Color("Accent2"))
-                    .font(.title3)
+                    .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
                     .multilineTextAlignment(.center)
                     .padding(5)
                     .padding(.horizontal, 20)
@@ -72,7 +72,7 @@ struct WelcomeScreen: View {
                         // Image("Image")
                         Text("**Tap to Continue**")
                             .foregroundColor(Color("Accent2"))
-                            .font(.title2)
+                            .font(Font.custom("EBGaramond-Medium", size: 22, relativeTo: .body))
                             .padding(10)
                             .background(Color("Accent1"))
                             .cornerRadius(10)
@@ -106,6 +106,8 @@ struct HomeScreen: View {
                     .tabItem {
                         Image(systemName: "fork.knife.circle")
                         Text("Discover")
+                            .font(.custom("Kalnia-SemiBold", size: 20))
+
                     }
                     .tag(0)
 

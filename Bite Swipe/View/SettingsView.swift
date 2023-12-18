@@ -27,6 +27,10 @@ struct SettingsView: View {
             Color("BKColor")
                 .ignoresSafeArea()
             VStack{
+                Text("Settings")
+                    .font(Font.custom("PlayfairDisplay-Bold", size: 38, relativeTo: .title))
+                Spacer()
+
                 HStack {
                     TextField("Enter Zip Code", text: $restaurantViewModel.zipCodeInput, onCommit: {
                         if restaurantViewModel.isValidZipCode(restaurantViewModel.zipCodeInput) {
@@ -45,6 +49,7 @@ struct SettingsView: View {
                         }
                     })
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .font(Font.custom("EBGaramond-Medium", size: 20, relativeTo: .subheadline))
                     .shadow(color: Color("Accent2").opacity(0.2), radius: 3, x: 0, y: 3)
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
@@ -72,9 +77,9 @@ struct SettingsView: View {
                         }
                     }) {
                         Text("Submit")
-                            .font(.body)
+                            .font(Font.custom("EBGaramond-Bold", size: 20, relativeTo: .body))
                             .foregroundColor(Color("Accent2"))
-                            .padding(7)
+                            .padding(5)
                             .background(Color("Accent1"))
                             .cornerRadius(10)
                             .shadow(color: Color("Accent2").opacity(0.3), radius: 3, x: 0, y: 3)
@@ -89,7 +94,7 @@ struct SettingsView: View {
                 
                 Text("**Current Zip Code:** \(restaurantViewModel.currentZipCode)")
                     .foregroundColor(Color("Accent2"))
-                    .font(.body)
+                    .font(Font.custom("EBGaramond-Medium", size: 25, relativeTo: .body))
                     .padding(10)
 
                 
@@ -99,8 +104,8 @@ struct SettingsView: View {
                     VStack{
                         Text("_Tutorial_")
                             .foregroundColor(Color("Accent2"))
-                            .font(.body)
-                            .padding(10)
+                            .font(Font.custom("EBGaramond-Medium", size: 22, relativeTo: .body))
+                            .padding(7)
                             .background(Color("Accent1"))
                             .cornerRadius(5)
                             .shadow(color: Color("Accent2").opacity(0.4), radius: 5, x: 0, y: 5)
@@ -120,8 +125,8 @@ struct SettingsView: View {
                 Button(action: {
                     isResetConfirmationPresented.toggle()
                 }) {
-                    Text("**Reset App**")
-                        .font(.title)
+                    Text("Reset App")
+                        .font(Font.custom("EBGaramond-Bold", size: 35, relativeTo: .title))
                         .foregroundColor(Color("Accent1"))
                         .padding(60)
                         .padding(.horizontal, 40)
@@ -143,6 +148,10 @@ struct SettingsView: View {
                         secondaryButton: .cancel()
                     )
                 }
+                .padding(.bottom, 50)
+
+                Spacer()
+
             }
         }
         .onAppear {
@@ -161,21 +170,21 @@ struct TutorialView: View {
             Color("BKColor")
                 .ignoresSafeArea()
             VStack {
-                Text("Swipe Right to _Favorite_ an app")
+                Text("Swipe right to **Favorite** a restaurant")
                     .foregroundColor(Color("Accent2"))
-                    .font(.title3)
+                    .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
                     .multilineTextAlignment(.center)
                     .padding(5)
                     .padding(.horizontal, 20)
-                Text("Swipe Left to _Trash_ an app")
+                Text("Swipe left to **Trash** a restaurant")
                     .foregroundColor(Color("Accent2"))
-                    .font(.title3)
+                    .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
                     .multilineTextAlignment(.center)
                     .padding(5)
                     .padding(.horizontal, 20)
                 Text("Filter through favorites on the **Favorites** tab")
                     .foregroundColor(Color("Accent2"))
-                    .font(.title3)
+                    .font(Font.custom("EBGaramond-Medium", size: 24, relativeTo: .title3))
                     .multilineTextAlignment(.center)
                     .padding(5)
                     .padding(.horizontal, 20)

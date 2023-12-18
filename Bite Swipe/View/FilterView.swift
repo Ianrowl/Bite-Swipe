@@ -27,35 +27,42 @@ struct FilterView: View {
                         Section(header: Text("Search")) {
                             TextField("Search", text: $searchText)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-//                                .background(Color("Accent1"))
+                                .background(Color("Accent1"))
                                 .accentColor(Color("Accent2"))
                                 .foregroundColor(Color("Accent2"))
-                            
+                                .font(Font.custom("EBGaramond-Medium", size: 20, relativeTo: .subheadline))
                             
                             Picker("Select Cuisine", selection: $filterViewModel.selectedCuisine) {
                                 Text("All Cuisines").tag(nil as String?)
+                                    .font(.custom("EBGaramond-Medium", size: 21))
                                 ForEach(likedCuisines().sorted(), id: \.self) { cuisine in
                                     Text(cuisine).tag(cuisine as String?)
+                                        .font(.custom("EBGaramond-Medium", size: 21, relativeTo: .subheadline))
                                 }
                             }
                             .pickerStyle(WheelPickerStyle())
                             .frame(height: 120)
-                        }.listRowBackground(Color("Accent1"))
+                        }.font(Font.custom("PlayfairDisplay-Medium", size: 15, relativeTo: .headline))
+                            .listRowBackground(Color("Accent1"))
+                            
+
                         
                         Section(header: Text("Favorited Restaurants")) {
                             if restaurantViewModel.likedRestaurants.isEmpty {
                                 Text("No liked restaurants found.")
                                     .listRowBackground(Color("Accent1"))
+                                    .font(Font.custom("EBGaramond-Medium", size: 21, relativeTo: .subheadline))
                             } else {
                                 ForEach(filteredLikedRestaurants(), id: \.self) { fsq_id in
                                     if let restaurant = restaurantViewModel.restaurants.first(where: { $0.fsq_id == fsq_id }) {
                                         NavigationLink(destination: FavView(restaurant: restaurant)) {
                                             Text(restaurant.name)
+                                                .font(Font.custom("EBGaramond-Medium", size: 21, relativeTo: .subheadline))
                                         }
                                     }
                                 }.listRowBackground(Color("Accent1"))
                             }
-                        }
+                        }.font(Font.custom("PlayfairDisplay-Medium", size: 15, relativeTo: .headline))
                     }
                     .scrollContentBackground(.hidden)
                     .listStyle(GroupedListStyle())
@@ -70,10 +77,11 @@ struct FilterView: View {
                       VStack {
                           Spacer()
                           Text("Favorites")
-                              .font(.largeTitle.bold())
+//                              .font(.largeTitle.bold())
+                              .font(Font.custom("PlayfairDisplay-Bold", size: 38, relativeTo: .title))
                               .foregroundColor(Color(Color("Accent2")))
-                              .padding(.top, 27) // Add some bottom padding for spacing
-                              .padding(.bottom, 10) // Add some bottom padding for spacing
+                              .padding(.top, 20)
+                              .padding(.bottom, 10)
                           Spacer()
                       }
                   }

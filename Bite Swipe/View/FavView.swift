@@ -25,7 +25,7 @@ struct FavView: View {
             
             VStack {
                 Text(restaurant.name)
-                    .font(.largeTitle)
+                    .font(Font.custom("EBGaramond-Bold", size: 45, relativeTo: .title))
                     .multilineTextAlignment(.center)
                     .padding(20)
                 
@@ -41,7 +41,8 @@ struct FavView: View {
                     }
                 }
                 
-                Text("Cuisine: \(restaurant.cuisine)")
+                Text("**Cuisine:** \(restaurant.cuisine)")
+                    .font(Font.custom("EBGaramond-Regular", size: 24, relativeTo: .subheadline))
                     .padding(10)
                 
                 Button(action: {
@@ -49,6 +50,8 @@ struct FavView: View {
                     filterViewModel.isModalPresented.toggle()
                 }) {
                     Text("Map")
+                        .font(Font.custom("EBGaramond-Bold", size: 22, relativeTo: .subheadline))
+                        .foregroundColor(Color("Accent3"))
                 }
                 .padding()
                 .sheet(isPresented: $filterViewModel.isModalPresented) {
@@ -81,8 +84,12 @@ struct ModalSheet: View {
             Color("BKColor")
                 .ignoresSafeArea()
             VStack {
-                Button("Close") {
+                Button(action: {
                     dismiss()
+                }) {
+                    Text("Close")
+                        .font(Font.custom("EBGaramond-Bold", size: 20, relativeTo: .subheadline))
+                        .foregroundColor(Color("Accent3"))
                 }
                 .padding()
                 

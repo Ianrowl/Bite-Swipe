@@ -24,6 +24,8 @@ struct YourApp: App {
         WindowGroup {
             ContentView()
                 .accentColor(Color("Accent2"))
+//                .accentColor(Color.red)
+
         }
     }
 }

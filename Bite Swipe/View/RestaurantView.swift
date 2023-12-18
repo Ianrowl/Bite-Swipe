@@ -84,9 +84,10 @@ struct RestaurantView: View {
                           VStack {
                               Spacer()
                               Text("Discover")
-                                  .font(.largeTitle.bold())
+                                  .font(Font.custom("PlayfairDisplay-Bold", size: 38, relativeTo: .title))
+
                                   .foregroundColor(Color("Accent2"))
-                                  .padding(.top, 27)
+                                  .padding(.top, 20)
                                   .padding(.bottom, 10)
                               Spacer()
                           }
@@ -133,9 +134,10 @@ struct RestaurantCard: View {
     var body: some View {
         VStack {
             Text(restaurant.name)
-                .font(.largeTitle)
+                .font(Font.custom("EBGaramond-Bold", size: 40, relativeTo: .title))
                 .multilineTextAlignment(.center)
                 .padding(20)
+                .padding(.top, 20)
             if restaurantViewModel.photos.isEmpty {
                 PlaceholderView()
                     .frame(width: 200, height: 250)
@@ -150,15 +152,18 @@ struct RestaurantCard: View {
                                 .scaledToFit()
                                 .frame(width: 200, height: 250)
                                 .cornerRadius(10)
+//                                .padding(10)
                         }
                     }
                 }
             }
 
-            Text("Cuisine: \(restaurant.cuisine)")
+            Text("**Cuisine:** \(restaurant.cuisine)")
+                .font(Font.custom("EBGaramond-Regular", size: 22, relativeTo: .subheadline))
                 .padding(5)
             
-            Text("Location: \(restaurant.location)")
+            Text("**Location:** \(restaurant.location)")
+                .font(Font.custom("EBGaramond-Regular", size: 22, relativeTo: .subheadline))
                 .multilineTextAlignment(.center)
 
                 .padding(15)

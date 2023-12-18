@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D7126B5A2B300DA4001AF9B4 /* PlayfairDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7126B592B300DA4001AF9B4 /* PlayfairDisplay-Bold.ttf */; };
+		D7126B5C2B301226001AF9B4 /* PlayfairDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7126B5B2B301226001AF9B4 /* PlayfairDisplay-Medium.ttf */; };
+		D7126B5E2B30128A001AF9B4 /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7126B5D2B30128A001AF9B4 /* PlayfairDisplay-Regular.ttf */; };
+		D7126B622B301689001AF9B4 /* EBGaramond-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7126B612B301689001AF9B4 /* EBGaramond-Regular.ttf */; };
+		D7126B642B301690001AF9B4 /* EBGaramond-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7126B632B301690001AF9B4 /* EBGaramond-Medium.ttf */; };
+		D7126B662B3016F5001AF9B4 /* EBGaramond-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7126B652B3016F5001AF9B4 /* EBGaramond-Bold.ttf */; };
 		D7168DAB2B2A95F000125332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7168DAA2B2A95F000125332 /* LaunchScreen.storyboard */; };
 		D720880E2B06C9F300618739 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720880D2B06C9F300618739 /* FilterView.swift */; };
 		D72088132B06CA4A00618739 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72088122B06CA4A00618739 /* FilterViewModel.swift */; };
@@ -48,6 +54,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D7126B592B300DA4001AF9B4 /* PlayfairDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PlayfairDisplay-Bold.ttf"; path = "../../../Fonts/Playfair_Display/static/PlayfairDisplay-Bold.ttf"; sourceTree = "<group>"; };
+		D7126B5B2B301226001AF9B4 /* PlayfairDisplay-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PlayfairDisplay-Medium.ttf"; path = "../../../Fonts/Playfair_Display/static/PlayfairDisplay-Medium.ttf"; sourceTree = "<group>"; };
+		D7126B5D2B30128A001AF9B4 /* PlayfairDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PlayfairDisplay-Regular.ttf"; path = "../../../Fonts/Playfair_Display/static/PlayfairDisplay-Regular.ttf"; sourceTree = "<group>"; };
+		D7126B612B301689001AF9B4 /* EBGaramond-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "EBGaramond-Regular.ttf"; path = "../../../Fonts/EB_Garamond/static/EBGaramond-Regular.ttf"; sourceTree = "<group>"; };
+		D7126B632B301690001AF9B4 /* EBGaramond-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "EBGaramond-Medium.ttf"; path = "../../../Fonts/EB_Garamond/static/EBGaramond-Medium.ttf"; sourceTree = "<group>"; };
+		D7126B652B3016F5001AF9B4 /* EBGaramond-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "EBGaramond-Bold.ttf"; path = "../../../Fonts/EB_Garamond/static/EBGaramond-Bold.ttf"; sourceTree = "<group>"; };
 		D7168DAA2B2A95F000125332 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D720880D2B06C9F300618739 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		D72088122B06CA4A00618739 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
@@ -102,6 +114,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D7126B542B300A99001AF9B4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D7126B5D2B30128A001AF9B4 /* PlayfairDisplay-Regular.ttf */,
+				D7126B5B2B301226001AF9B4 /* PlayfairDisplay-Medium.ttf */,
+				D7126B592B300DA4001AF9B4 /* PlayfairDisplay-Bold.ttf */,
+				D7126B612B301689001AF9B4 /* EBGaramond-Regular.ttf */,
+				D7126B632B301690001AF9B4 /* EBGaramond-Medium.ttf */,
+				D7126B652B3016F5001AF9B4 /* EBGaramond-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		D72088112B06CA1500618739 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +182,7 @@
 		D761A8E42AEF6DDA00968955 /* Bite Swipe */ = {
 			isa = PBXGroup;
 			children = (
+				D7126B542B300A99001AF9B4 /* Fonts */,
 				D7A18E412B2A8F6D00BF99A4 /* Bite-Swipe-Info.plist */,
 				D761A8E52AEF6DDB00968955 /* Bite_SwipeApp.swift */,
 				D727EF3F2AF454E700A21EDF /* View Model */,
@@ -309,7 +335,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7126B5A2B300DA4001AF9B4 /* PlayfairDisplay-Bold.ttf in Resources */,
+				D7126B622B301689001AF9B4 /* EBGaramond-Regular.ttf in Resources */,
+				D7126B642B301690001AF9B4 /* EBGaramond-Medium.ttf in Resources */,
+				D7126B5C2B301226001AF9B4 /* PlayfairDisplay-Medium.ttf in Resources */,
+				D7126B5E2B30128A001AF9B4 /* PlayfairDisplay-Regular.ttf in Resources */,
 				D7168DAB2B2A95F000125332 /* LaunchScreen.storyboard in Resources */,
+				D7126B662B3016F5001AF9B4 /* EBGaramond-Bold.ttf in Resources */,
 				D761A8EE2AEF6DDE00968955 /* Preview Assets.xcassets in Resources */,
 				D761A8EA2AEF6DDE00968955 /* Assets.xcassets in Resources */,
 			);
